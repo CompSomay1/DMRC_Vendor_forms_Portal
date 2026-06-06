@@ -1,0 +1,76 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  VENDOR
+  ADMIN
+}
+
+enum VendorCategory {
+  CIVIL
+  ELECTRICAL
+  ARCHITECTURE
+}
+
+enum ApplicationStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id           String              @id @default(cuid())
+  panCard      String              @unique
+  password     String
+  role         UserRole            @default(VENDOR)
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+
+  applications VendorApplication[]
+}
+
+model VendorApplication {
+  id           String              @id @default(cuid())
+  userId       String
+  category     VendorCategory
+  status       ApplicationStatus   @default(DRAFT)
+  companyName  String?
+  formData     Json?
+  remarks      String?
+  submittedAt  DateTime?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+
+  user         User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  documents    ApplicationDocument[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([category])
+  @@index([userId, category, status])
+}
+
+model ApplicationDocument {
+  id            String            @id @default(cuid())
+  applicationId String
+  documentType  String
+  fileName      String
+  fileUrl       String
+  mimeType      String?
+  sizeBytes     Int?
+  createdAt     DateTime          @default(now())
+
+  application   VendorApplication @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+}
