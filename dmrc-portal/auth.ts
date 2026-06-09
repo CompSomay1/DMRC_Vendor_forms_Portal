@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { authConfig } from "./auth.config";
 import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
-import { z } from "zod";
+import { loginSchema } from "@/lib/validations/auth";
 
 // TypeScript Augmentation for session / token properties
 declare module "next-auth" {
@@ -28,11 +28,6 @@ declare module "@auth/core/jwt" {
     role?: string;
   }
 }
-
-const loginSchema = z.object({
-  panCard: z.string().min(1),
-  password: z.string().min(1),
-});
 
 export const { auth, signIn, signOut, handlers } = NextAuth({
   ...authConfig,

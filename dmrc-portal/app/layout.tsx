@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Toaster } from "@/components/ui/sonner";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 
 export const metadata: Metadata = {
-  title: "DMRC Vendor Registration Portal",
+  title: {
+    default: "DMRC Vendor Registration Portal",
+    template: "%s | DMRC Vendor Portal",
+  },
   description:
-    "Register as a vendor with Delhi Metro Rail Corporation. Submit applications for Civil, Electrical, or Architecture categories.",
+    "Delhi Metro Rail Corporation — Secure portal for vendor registration, application submission, and approval tracking.",
+  keywords: ["DMRC", "vendor", "registration", "Delhi Metro", "portal"],
 };
 
 export default function RootLayout({
@@ -17,11 +20,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={cn("h-full antialiased", inter.variable, "font-sans")}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className="h-full antialiased font-sans">
+      <body className="min-h-full flex flex-col">
+        <Header />
+        {children}
+        <Footer />
+        <Toaster
+          position="top-right"
+          richColors
+          closeButton
+          toastOptions={{
+            duration: 4000,
+          }}
+        />
+      </body>
     </html>
   );
 }
