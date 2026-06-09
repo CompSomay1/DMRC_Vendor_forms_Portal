@@ -1,0 +1,41 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          String   @id @default(cuid())
+  panCard     String   @unique
+  password    String
+  createdAt   DateTime @default(now())
+  application VendorApplication?
+}
+
+model VendorApplication {
+  id          String      @id @default(cuid())
+  userId      String      @unique
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category    Category
+  status      Status      @default(PENDING)
+  companyName String
+  formData    Json
+  submittedAt DateTime    @default(now())
+}
+
+enum Category {
+  CIVIL
+  ELECTRICAL
+  ARCHITECTURE
+}
+
+enum Status {
+  PENDING
+  APPROVED
+  REJECTED
+}
