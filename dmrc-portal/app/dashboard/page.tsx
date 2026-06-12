@@ -112,7 +112,7 @@ export default function DashboardPage() {
           </h2>
           <div className="grid gap-4">
             {applications.map((app) => (
-              <ApplicationCard key={app.id} application={app} />
+              <ApplicationCard key={app.id} application={app} onDelete={fetchApplications} />
             ))}
           </div>
         </div>

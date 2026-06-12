@@ -1,23 +1,24 @@
 "use client";
 
 import { Check } from "lucide-react";
-import { FORM_STEPS } from "@/types/application";
+import { FORM_STEPS, StepInfo } from "@/types/application";
 
 interface StepIndicatorProps {
   currentStep: number;
+  steps?: StepInfo[];
 }
 
-export function StepIndicator({ currentStep }: StepIndicatorProps) {
+export function StepIndicator({ currentStep, steps = FORM_STEPS }: StepIndicatorProps) {
   return (
     <div className="w-full">
       {/* Step counter text */}
       <p className="mb-4 text-center text-sm font-medium text-muted-foreground">
-        Step {currentStep} of {FORM_STEPS.length}
+        Step {currentStep} of {steps.length}
       </p>
 
       {/* Progress bar */}
       <div className="flex items-center justify-between gap-2">
-        {FORM_STEPS.map((step, index) => {
+        {steps.map((step, index) => {
           const isCompleted = currentStep > step.step;
           const isCurrent = currentStep === step.step;
           const isUpcoming = currentStep < step.step;
@@ -60,7 +61,7 @@ export function StepIndicator({ currentStep }: StepIndicatorProps) {
               </div>
 
               {/* Connector line */}
-              {index < FORM_STEPS.length - 1 && (
+              {index < steps.length - 1 && (
                 <div
                   className={`mx-2 h-0.5 flex-1 rounded-full transition-all duration-500 ${
                     isCompleted

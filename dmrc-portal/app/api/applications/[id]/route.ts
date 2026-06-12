@@ -138,3 +138,49 @@ export async function PUT(
     );
   }
 }
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = await params;
+
+    const application = await db.vendorApplication.findFirst({
+      where: {
+        id,
+        userId: session.user.id,
+      },
+    });
+
+    if (!application) {
+      return NextResponse.json({ error: "Application not found" }, { status: 404 });
+    }
+
+    // Only DRAFT applications can be deleted
+    if (application.status !== "DRAFT") {
+      return NextResponse.json(
+        { error: "Only draft applications can be deleted" },
+        { status: 400 }
+      );
+    }
+
+    await db.vendorApplication.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ success: true }, { status: 200 });
+  } catch (error) {
+    console.error("Delete application error:", error);
+    return NextResponse.json(
+      { error: "Unable to delete vendor application" },
+      { status: 500 }
+    );
+  }
+}

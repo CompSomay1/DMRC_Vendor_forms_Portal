@@ -118,21 +118,54 @@ export const architectureFieldsSchema = z.object({
   materialItem: z.string().min(1, "Material/Item is required"),
 
   // Qualifying Criteria
-  isCodeConformance: z.string().optional(),
-  internationalCodeConformance: z.string().optional(),
-  nablAccredited: z.boolean().optional(),
-  nablLabName: z.string().optional(),
-  internationalLabTested: z.boolean().optional(),
-  internationalLabName: z.string().optional(),
-  internationalLabTestName: z.string().optional(),
-  isoCertified: z.boolean().optional(),
-  isoDetails: z.string().optional(),
+  isCodes: z.array(z.object({
+    code: z.string().min(1, "IS code is required"),
+    validTill: z.string().min(1, "Valid till date is required"),
+    certificateUrl: z.string().min(1, "Certificate PDF is required"),
+  })).optional().default([]),
+
+  internationalCodes: z.array(z.object({
+    code: z.string().min(1, "International code is required"),
+    validTill: z.string().min(1, "Valid till date is required"),
+    certificateUrl: z.string().min(1, "Certificate PDF is required"),
+  })).optional().default([]),
+
+  nablAccredited: z.boolean().optional().default(false),
+  nablEntries: z.array(z.object({
+    labName: z.string().min(1, "NABL lab name is required"),
+    validTill: z.string().min(1, "Valid till date is required"),
+    certificateUrl: z.string().min(1, "Certificate PDF is required"),
+  })).optional().default([]),
+
+  internationalLabTested: z.boolean().optional().default(false),
+  internationalLabEntries: z.array(z.object({
+    labName: z.string().min(1, "International lab name is required"),
+    testName: z.string().min(1, "Test name is required"),
+    validTill: z.string().min(1, "Valid till date is required"),
+    certificateUrl: z.string().min(1, "Certificate PDF is required"),
+  })).optional().default([]),
+
+  isoCertified: z.boolean().optional().default(false),
+  isoEntries: z.array(z.object({
+    isoDetails: z.string().min(1, "ISO details are required"),
+    validTill: z.string().min(1, "Valid till date is required"),
+    documentUrl: z.string().min(1, "Document PDF is required"),
+  })).optional().default([]),
 
   // Additional Information
-  greenCertified: z.boolean().optional(),
-  greenCertOrganisation: z.string().optional(),
-  govRegistered: z.boolean().optional(),
-  govOrganisation: z.string().optional(),
+  greenCertified: z.boolean().optional().default(false),
+  greenEntries: z.array(z.object({
+    orgName: z.string().min(1, "Organisation name is required"),
+    validTill: z.string().min(1, "Valid till date is required"),
+    documentUrl: z.string().min(1, "Document PDF is required"),
+  })).optional().default([]),
+
+  govRegistered: z.boolean().optional().default(false),
+  govEntries: z.array(z.object({
+    orgName: z.string().min(1, "Organisation name is required"),
+    validTill: z.string().min(1, "Valid till date is required"),
+    documentUrl: z.string().min(1, "Document PDF is required"),
+  })).optional().default([]),
 
   // Projects
   projects: z.array(z.object({
@@ -140,23 +173,91 @@ export const architectureFieldsSchema = z.object({
     amount: z.string().min(1, "Amount is required"),
     currency: z.string().min(1, "Currency is required"),
     completionDate: z.string().min(1, "Completion date is required"),
-  })).max(5).optional(),
+    workOrderUrl: z.string().min(1, "Work order PDF is required"),
+    completionCertUrl: z.string().min(1, "Completion certificate PDF is required"),
+  })).max(5).optional().default([]),
 
   // DMRC Projects
-  suppliedToDmrc: z.boolean().optional(),
+  suppliedToDmrc: z.boolean().optional().default(false),
   dmrcProjects: z.array(z.object({
-    contractNumber: z.string(),
-    contractorName: z.string(),
-    amount: z.string(),
-    currency: z.string(),
-    completionDate: z.string(),
-  })).max(5).optional(),
+    contractNumber: z.string().min(1, "Contract number is required"),
+    contractorName: z.string().min(1, "Contractor name is required"),
+    amount: z.string().min(1, "Amount is required"),
+    currency: z.string().min(1, "Currency is required"),
+    completionDate: z.string().min(1, "Completion date is required"),
+    workOrderUrl: z.string().min(1, "Work order PDF is required"),
+    completionCertUrl: z.string().min(1, "Completion certificate PDF is required"),
+  })).max(5).optional().default([]),
 
   // Application & Material Properties
-  applicationArea: z.enum(["INTERIOR", "EXTERIOR"]).optional(),
-  usesCD_waste: z.boolean().optional(),
-  sriApplicable: z.boolean().optional(),
+  applicationArea: z.object({
+    interior: z.boolean().default(false),
+    exterior: z.boolean().default(false),
+  }).refine(val => val.interior || val.exterior, {
+    message: "Please select at least one application area",
+    path: ["interior"],
+  }),
+  usesCD_waste: z.boolean().optional().default(false),
+  sriApplicable: z.boolean().optional().default(false),
   sriValue: z.string().optional(),
+  sriValidTill: z.string().optional(),
+  sriTestReportUrl: z.string().optional(),
+}).refine((data) => {
+  if (data.sriApplicable) {
+    return !!data.sriValue && !!data.sriValidTill && !!data.sriTestReportUrl;
+  }
+  return true;
+}, {
+  message: "SRI value, valid till, and test report PDF are required when SRI is applicable",
+  path: ["sriValue"],
+}).refine((data) => {
+  if (data.nablAccredited && (!data.nablEntries || data.nablEntries.length === 0)) {
+    return false;
+  }
+  return true;
+}, {
+  message: "At least one NABL laboratory entry is required",
+  path: ["nablEntries"],
+}).refine((data) => {
+  if (data.internationalLabTested && (!data.internationalLabEntries || data.internationalLabEntries.length === 0)) {
+    return false;
+  }
+  return true;
+}, {
+  message: "At least one international laboratory entry is required",
+  path: ["internationalLabEntries"],
+}).refine((data) => {
+  if (data.isoCertified && (!data.isoEntries || data.isoEntries.length === 0)) {
+    return false;
+  }
+  return true;
+}, {
+  message: "At least one ISO certification entry is required",
+  path: ["isoEntries"],
+}).refine((data) => {
+  if (data.greenCertified && (!data.greenEntries || data.greenEntries.length === 0)) {
+    return false;
+  }
+  return true;
+}, {
+  message: "At least one Green certification entry is required",
+  path: ["greenEntries"],
+}).refine((data) => {
+  if (data.govRegistered && (!data.govEntries || data.govEntries.length === 0)) {
+    return false;
+  }
+  return true;
+}, {
+  message: "At least one Government/PSU registration entry is required",
+  path: ["govEntries"],
+}).refine((data) => {
+  if (data.suppliedToDmrc && (!data.dmrcProjects || data.dmrcProjects.length === 0)) {
+    return false;
+  }
+  return true;
+}, {
+  message: "At least one DMRC project details entry is required",
+  path: ["dmrcProjects"],
 });
 
 // Combined application schema

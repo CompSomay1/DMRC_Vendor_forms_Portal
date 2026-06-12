@@ -28,7 +28,7 @@ import { ElectricalFields } from "@/components/forms/ElectricalFields";
 import { ArchitectureFields } from "@/components/forms/ArchitectureFields";
 import { FormReview } from "@/components/forms/FormReview";
 
-import { Category, ApplicationDocument } from "@/types/application";
+import { Category, ApplicationDocument, FORM_STEPS } from "@/types/application";
 import { baseFieldsSchema } from "@/lib/validations/application";
 
 // Minimal schema for form — full category validation is applied on submit
@@ -68,6 +68,26 @@ function ApplyFormContent() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [docType, setDocType] = useState<string>("ISO_CERTIFICATE");
   const [isUploading, setIsUploading] = useState(false);
+
+  const steps = selectedCategory === Category.ARCHITECTURE
+    ? [
+        {
+          step: 1,
+          title: "Company Information",
+          description: "Basic company and product details",
+        },
+        {
+          step: 2,
+          title: "Category Fields",
+          description: "Category-specific qualification details & docs",
+        },
+        {
+          step: 3,
+          title: "Review & Submit",
+          description: "Review your application and submit",
+        },
+      ]
+    : FORM_STEPS;
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema, undefined),
@@ -110,6 +130,26 @@ function ApplyFormContent() {
         undertaking_d: false,
         undertaking_e: false,
         undertaking_f: false,
+        // Architecture default values
+        isCodes: [],
+        internationalCodes: [],
+        nablEntries: [],
+        internationalLabTested: false,
+        internationalLabEntries: [],
+        isoEntries: [],
+        greenCertified: false,
+        greenEntries: [],
+        govRegistered: false,
+        govEntries: [],
+        projects: [],
+        suppliedToDmrc: false,
+        dmrcProjects: [],
+        applicationArea: { interior: false, exterior: false },
+        usesCD_waste: false,
+        sriApplicable: false,
+        sriValue: "",
+        sriValidTill: "",
+        sriTestReportUrl: "",
       },
     },
   });
@@ -205,7 +245,9 @@ function ApplyFormContent() {
       await saveDraftProgress();
       setCurrentStep(3);
     } else if (currentStep === 3) {
-      setCurrentStep(4);
+      if (selectedCategory !== Category.ARCHITECTURE) {
+        setCurrentStep(4);
+      }
     }
   }
 
@@ -307,7 +349,7 @@ function ApplyFormContent() {
 
       {/* Step Indicator */}
       <div className="mb-8">
-        <StepIndicator currentStep={currentStep} />
+        <StepIndicator currentStep={currentStep} steps={steps} />
       </div>
 
       {/* Locked category indicator */}
@@ -335,11 +377,11 @@ function ApplyFormContent() {
                 <ElectricalFields form={form} />
               )}
               {currentStep === 2 && selectedCategory === Category.ARCHITECTURE && (
-                <ArchitectureFields form={form} />
+                <ArchitectureFields form={form} applicationId={draftId || ""} />
               )}
 
               {/* Step 3: Document Uploads */}
-              {currentStep === 3 && (
+              {currentStep === 3 && selectedCategory !== Category.ARCHITECTURE && (
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-lg font-medium text-foreground">Attach Supporting Documents</h3>
@@ -434,7 +476,8 @@ function ApplyFormContent() {
               )}
 
               {/* Step 4: Review */}
-              {currentStep === 4 && (
+              {((currentStep === 4 && selectedCategory !== Category.ARCHITECTURE) ||
+                (currentStep === 3 && selectedCategory === Category.ARCHITECTURE)) && (
                 <FormReview
                   category={selectedCategory}
                   formValues={form.getValues()}
@@ -455,7 +498,7 @@ function ApplyFormContent() {
                 </Button>
 
                 <div className="flex items-center gap-3">
-                  {currentStep < 4 && (
+                  {currentStep < steps.length && (
                     <Button
                       id="form-next-step"
                       type="button"
@@ -467,7 +510,7 @@ function ApplyFormContent() {
                     </Button>
                   )}
 
-                  {currentStep === 4 && (
+                  {currentStep === steps.length && (
                     <Button
                       id="form-submit"
                       type="button"

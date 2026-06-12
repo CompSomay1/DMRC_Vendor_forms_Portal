@@ -114,16 +114,6 @@ export function Header() {
               <span className="hidden sm:inline">Dashboard</span>
             </Button>
           </Link>
-          <Link href="/dashboard/apply">
-            <Button
-              variant={pathname === "/dashboard/apply" ? "secondary" : "ghost"}
-              size="sm"
-              className="gap-2"
-            >
-              <FileText className="h-4 w-4" />
-              <span className="hidden sm:inline">Apply</span>
-            </Button>
-          </Link>
           <div className="mx-2 h-6 w-px bg-border" />
           <Button
             variant="ghost"

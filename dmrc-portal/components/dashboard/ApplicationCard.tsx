@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import {
   Card,
@@ -11,11 +12,21 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
-import { Building2, Calendar, Tag, ChevronRight, Edit, Paperclip } from "lucide-react";
+import { Building2, Calendar, Tag, ChevronRight, Edit, Paperclip, Trash2, Loader2 } from "lucide-react";
 import { VendorApplication, Category } from "@/types/application";
+import { toast } from "@/components/ui/sonner";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface ApplicationCardProps {
   application: VendorApplication;
+  onDelete?: () => void;
 }
 
 const categoryLabels: Record<Category, string> = {
@@ -30,12 +41,38 @@ const categoryColors: Record<Category, string> = {
   [Category.ARCHITECTURE]: "bg-teal-50 text-teal-700 border-teal-200",
 };
 
-export function ApplicationCard({ application }: ApplicationCardProps) {
+export function ApplicationCard({ application, onDelete }: ApplicationCardProps) {
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+
   const formData = application.formData as Record<string, unknown> | null;
   const isDraft = application.status === "DRAFT";
   
   const dateLabel = isDraft ? "Created on" : "Submitted on";
   const dateValue = application.submittedAt ?? application.createdAt;
+
+  async function handleDelete() {
+    setIsDeleting(true);
+    try {
+      const response = await fetch(`/api/applications/${application.id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        toast.success("Draft application deleted successfully.");
+        setShowDeleteDialog(false);
+        if (onDelete) {
+          onDelete();
+        }
+      } else {
+        const data = await response.json();
+        toast.error(data.error || "Failed to delete draft.");
+      }
+    } catch {
+      toast.error("Failed to delete draft.");
+    } finally {
+      setIsDeleting(false);
+    }
+  }
 
   return (
     <Card className="overflow-hidden border-border/50 shadow-lg transition-all duration-300 hover:shadow-xl">
@@ -143,7 +180,16 @@ export function ApplicationCard({ application }: ApplicationCardProps) {
 
         {/* Draft Edit Action */}
         {isDraft && (
-          <div className="mt-5 flex justify-end">
+          <div className="mt-5 flex items-center justify-between">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => setShowDeleteDialog(true)}
+              className="gap-1.5 border-destructive/30 hover:border-destructive hover:bg-destructive/5 text-destructive font-semibold transition-colors"
+            >
+              <Trash2 className="h-3.5 w-3.5" />
+              Delete Draft
+            </Button>
             <Link href={`/dashboard/apply?id=${application.id}`}>
               <Button
                 size="sm"
@@ -155,6 +201,48 @@ export function ApplicationCard({ application }: ApplicationCardProps) {
             </Link>
           </div>
         )}
+
+        {/* Delete Confirmation Dialog */}
+        <Dialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+          <DialogContent className="sm:max-w-md">
+            <DialogHeader>
+              <DialogTitle className="text-destructive flex items-center gap-2">
+                <Trash2 className="h-5 w-5" />
+                Delete Draft Application?
+              </DialogTitle>
+              <DialogDescription>
+                Are you sure you want to delete this draft application for{" "}
+                <strong className="text-foreground">
+                  {application.companyName || `New ${categoryLabels[application.category]} Draft`}
+                </strong>
+                ? This action cannot be undone and will permanently remove all entered data and uploaded files.
+              </DialogDescription>
+            </DialogHeader>
+            <DialogFooter className="gap-2 sm:gap-0 mt-4">
+              <Button
+                variant="outline"
+                onClick={() => setShowDeleteDialog(false)}
+                disabled={isDeleting}
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleDelete}
+                disabled={isDeleting}
+                className="bg-destructive hover:bg-destructive/90 text-white"
+              >
+                {isDeleting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Deleting...
+                  </>
+                ) : (
+                  "Delete Permanently"
+                )}
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       </CardContent>
     </Card>
   );
