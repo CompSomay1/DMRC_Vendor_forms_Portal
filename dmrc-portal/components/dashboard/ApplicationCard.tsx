@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -8,8 +9,9 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
-import { Building2, Calendar, Tag, ChevronRight } from "lucide-react";
+import { Building2, Calendar, Tag, ChevronRight, Edit, Paperclip } from "lucide-react";
 import { VendorApplication, Category } from "@/types/application";
 
 interface ApplicationCardProps {
@@ -29,8 +31,11 @@ const categoryColors: Record<Category, string> = {
 };
 
 export function ApplicationCard({ application }: ApplicationCardProps) {
-  const formData = application.formData as Record<string, unknown>;
-  const submittedLabel = application.submittedAt ?? application.createdAt;
+  const formData = application.formData as Record<string, unknown> | null;
+  const isDraft = application.status === "DRAFT";
+  
+  const dateLabel = isDraft ? "Created on" : "Submitted on";
+  const dateValue = application.submittedAt ?? application.createdAt;
 
   return (
     <Card className="overflow-hidden border-border/50 shadow-lg transition-all duration-300 hover:shadow-xl">
@@ -41,12 +46,12 @@ export function ApplicationCard({ application }: ApplicationCardProps) {
         <div className="flex items-start justify-between gap-4">
           <div className="space-y-1">
             <CardTitle className="text-lg font-bold">
-              {application.companyName}
+              {application.companyName || `New ${categoryLabels[application.category]} Draft`}
             </CardTitle>
             <CardDescription className="flex items-center gap-2">
               <Calendar className="h-3.5 w-3.5" />
-              Submitted on{" "}
-              {new Date(submittedLabel).toLocaleDateString("en-IN", {
+              {dateLabel}{" "}
+              {new Date(dateValue).toLocaleDateString("en-IN", {
                 day: "numeric",
                 month: "long",
                 year: "numeric",
@@ -90,6 +95,14 @@ export function ApplicationCard({ application }: ApplicationCardProps) {
           </div>
         </div>
 
+        {/* Attached Documents Indicator */}
+        {application.documents && application.documents.length > 0 && (
+          <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-muted-foreground bg-muted/20 border border-border/40 p-2 rounded-lg w-fit">
+            <Paperclip className="h-3.5 w-3.5 text-dmrc-blue" />
+            <span>{application.documents.length} document(s) uploaded</span>
+          </div>
+        )}
+
         {/* Form data summary */}
         {formData && Object.keys(formData).length > 0 && (
           <div className="mt-4 rounded-lg border border-border/50 bg-muted/20 p-4">
@@ -125,6 +138,21 @@ export function ApplicationCard({ application }: ApplicationCardProps) {
                 </div>
               )}
             </div>
+          </div>
+        )}
+
+        {/* Draft Edit Action */}
+        {isDraft && (
+          <div className="mt-5 flex justify-end">
+            <Link href={`/dashboard/apply?id=${application.id}`}>
+              <Button
+                size="sm"
+                className="gap-1.5 bg-dmrc-blue hover:bg-dmrc-blue-light text-white font-semibold shadow-md shadow-dmrc-blue/20"
+              >
+                <Edit className="h-3.5 w-3.5" />
+                Resume Application
+              </Button>
+            </Link>
           </div>
         )}
       </CardContent>

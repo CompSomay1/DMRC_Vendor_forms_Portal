@@ -1,17 +1,17 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Loader2, ArrowLeft, ArrowRight, Send } from "lucide-react";
+import { Loader2, ArrowLeft, ArrowRight, Send, Paperclip, Upload } from "lucide-react";
+import { toast } from "@/components/ui/sonner";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { toast } from "@/components/ui/sonner";
 import { Form } from "@/components/ui/form";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
 import {
   Dialog,
   DialogContent,
@@ -28,7 +28,7 @@ import { ElectricalFields } from "@/components/forms/ElectricalFields";
 import { ArchitectureFields } from "@/components/forms/ArchitectureFields";
 import { FormReview } from "@/components/forms/FormReview";
 
-import { Category } from "@/types/application";
+import { Category, ApplicationDocument } from "@/types/application";
 import { baseFieldsSchema } from "@/lib/validations/application";
 
 // Minimal schema for form — full category validation is applied on submit
@@ -43,27 +43,31 @@ type FormValues = z.infer<typeof formSchema>;
 const categoryConfig = {
   [Category.CIVIL]: {
     label: "Civil",
-    color: "data-[state=active]:bg-dmrc-blue data-[state=active]:text-white",
   },
   [Category.ELECTRICAL]: {
     label: "Electrical",
-    color: "data-[state=active]:bg-purple-600 data-[state=active]:text-white",
   },
   [Category.ARCHITECTURE]: {
     label: "Architecture",
-    color: "data-[state=active]:bg-teal-600 data-[state=active]:text-white",
   },
 };
 
-export default function ApplyPage() {
+function ApplyFormContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const draftId = searchParams.get("id");
+
+  const [isLoadingDraft, setIsLoadingDraft] = useState(true);
   const [currentStep, setCurrentStep] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState<Category>(
-    Category.CIVIL
-  );
+  const [selectedCategory, setSelectedCategory] = useState<Category>(Category.CIVIL);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
-  const [categoryLocked, setCategoryLocked] = useState(false);
+
+  // Document upload states
+  const [uploadedDocuments, setUploadedDocuments] = useState<ApplicationDocument[]>([]);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [docType, setDocType] = useState<string>("ISO_CERTIFICATE");
+  const [isUploading, setIsUploading] = useState(false);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema, undefined),
@@ -80,7 +84,6 @@ export default function ApplyPage() {
         lifespan: "",
       },
       categoryFields: {
-        // Civil defaults
         isCodeConformance: "",
         internationalCodeConformance: "",
         nablAccredited: false,
@@ -111,93 +114,72 @@ export default function ApplyPage() {
     },
   });
 
-  function handleCategoryChange(value: string) {
-    if (categoryLocked) return;
-    const cat = value as Category;
-    setSelectedCategory(cat);
-    form.setValue("category", value as "CIVIL" | "ELECTRICAL" | "ARCHITECTURE");
-
-    // Reset category-specific fields when switching
-    if (cat === Category.ARCHITECTURE) {
-      form.setValue("categoryFields", {
-        materialItem: "",
-        isCodeConformance: "",
-        internationalCodeConformance: "",
-        nablAccredited: false,
-        isoCertified: false,
-        greenCertified: false,
-        govRegistered: false,
-        applicationArea: undefined,
-        usesCD_waste: false,
-        sriApplicable: false,
-        projects: [],
-        suppliedToDmrc: false,
-      });
-    } else {
-      form.setValue("categoryFields", {
-        isCodeConformance: "",
-        internationalCodeConformance: "",
-        nablAccredited: false,
-        isoCertified: false,
-        purchaseOrders: [
-          {
-            clientType: "",
-            clientName: "",
-            totalValue: "",
-            currency: "INR",
-            totalQuantity: "",
-            unit: "",
-            issuanceDate: "",
-          },
-        ],
-        completionCertificates: [
-          { clientType: "", clientName: "", certificateDate: "" },
-        ],
-        qualityPlanDetails: "",
-        financialYears: [{ financialYear: "" }],
-        undertaking_a: false,
-        undertaking_b_servicePeriod: "",
-        undertaking_c: false,
-        undertaking_d: false,
-        undertaking_e: false,
-        undertaking_f: false,
-      });
+  // Load draft application
+  useEffect(() => {
+    if (!draftId) {
+      toast.error("Application ID is required.");
+      router.push("/dashboard");
+      return;
     }
-  }
 
-  async function handleNext() {
-    if (currentStep === 1) {
-      // Validate base fields before proceeding
-      const valid = await form.trigger("baseFields");
-      if (!valid) {
-        toast.error("Please fill in all required company information fields.");
-        return;
+    async function loadDraft() {
+      try {
+        const response = await fetch(`/api/applications/${draftId}`);
+        if (!response.ok) {
+          toast.error("Failed to load application draft.");
+          router.push("/dashboard");
+          return;
+        }
+
+        const data = await response.json();
+        const app = data.application;
+
+        // Populate fields
+        setSelectedCategory(app.category);
+        form.setValue("category", app.category);
+
+        if (app.companyName) {
+          form.setValue("baseFields.companyName", app.companyName);
+        }
+
+        if (app.documents) {
+          setUploadedDocuments(app.documents);
+        }
+
+        const fd = app.formData as Record<string, any> | null;
+        if (fd) {
+          // populate baseFields
+          Object.keys(form.getValues("baseFields")).forEach((key) => {
+            if (fd[key] !== undefined) {
+              form.setValue(`baseFields.${key}` as any, fd[key]);
+            }
+          });
+          // populate categoryFields
+          Object.keys(form.getValues("categoryFields")).forEach((key) => {
+            if (fd[key] !== undefined) {
+              form.setValue(`categoryFields.${key}` as any, fd[key]);
+            }
+          });
+        }
+      } catch {
+        toast.error("Error connecting to server.");
+        router.push("/dashboard");
+      } finally {
+        setIsLoadingDraft(false);
       }
-      setCategoryLocked(true);
-      setCurrentStep(2);
-    } else if (currentStep === 2) {
-      setCurrentStep(3);
     }
-  }
 
-  function handleBack() {
-    if (currentStep === 2) {
-      setCategoryLocked(false);
-      setCurrentStep(1);
-    } else if (currentStep === 3) {
-      setCurrentStep(2);
-    }
-  }
+    loadDraft();
+  }, [draftId, form, router]);
 
-  async function handleSubmit() {
-    setIsSubmitting(true);
+  async function saveDraftProgress() {
+    if (!draftId) return;
+    const values = form.getValues();
     try {
-      const values = form.getValues();
-      const response = await fetch("/api/vendor/apply", {
-        method: "POST",
+      await fetch(`/api/applications/${draftId}`, {
+        method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          category: values.category,
           companyName: values.baseFields.companyName,
           formData: {
             ...values.baseFields,
@@ -205,16 +187,90 @@ export default function ApplyPage() {
           },
         }),
       });
+    } catch (err) {
+      console.error("Draft auto-save error:", err);
+    }
+  }
 
-      if (response.status === 409) {
-        toast.error("You have already submitted an application.");
-        router.push("/dashboard");
+  async function handleNext() {
+    if (currentStep === 1) {
+      const valid = await form.trigger("baseFields");
+      if (!valid) {
+        toast.error("Please fill in all required company information fields.");
+        return;
+      }
+      await saveDraftProgress();
+      setCurrentStep(2);
+    } else if (currentStep === 2) {
+      await saveDraftProgress();
+      setCurrentStep(3);
+    } else if (currentStep === 3) {
+      setCurrentStep(4);
+    }
+  }
+
+  function handleBack() {
+    if (currentStep === 2) {
+      setCurrentStep(1);
+    } else if (currentStep === 3) {
+      setCurrentStep(2);
+    } else if (currentStep === 4) {
+      setCurrentStep(3);
+    }
+  }
+
+  async function handleFileUpload() {
+    if (!selectedFile || !draftId) return;
+    setIsUploading(true);
+
+    try {
+      const uploadData = new FormData();
+      uploadData.append("file", selectedFile);
+      uploadData.append("documentType", docType);
+
+      const response = await fetch(`/api/applications/${draftId}/documents`, {
+        method: "POST",
+        body: uploadData,
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        toast.error(data.error || "File upload failed.");
         return;
       }
 
+      toast.success("Document uploaded successfully!");
+      setUploadedDocuments((prev) => [...prev, data.document]);
+      setSelectedFile(null);
+    } catch {
+      toast.error("An error occurred during file upload.");
+    } finally {
+      setIsUploading(false);
+    }
+  }
+
+  async function handleSubmit() {
+    if (!draftId) return;
+    setIsSubmitting(true);
+    try {
+      const values = form.getValues();
+      const response = await fetch(`/api/applications/${draftId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          companyName: values.baseFields.companyName,
+          formData: {
+            ...values.baseFields,
+            ...values.categoryFields,
+          },
+          status: "SUBMITTED",
+        }),
+      });
+
       if (!response.ok) {
         const data = await response.json();
-        toast.error(data.error || "Submission failed. Please try again.");
+        toast.error(data.error || "Submission failed. Please check form validations.");
         return;
       }
 
@@ -226,6 +282,15 @@ export default function ApplyPage() {
       setIsSubmitting(false);
       setShowConfirmDialog(false);
     }
+  }
+
+  if (isLoadingDraft) {
+    return (
+      <div className="flex flex-col items-center justify-center min-h-[400px] gap-3">
+        <Loader2 className="h-8 w-8 animate-spin text-dmrc-blue" />
+        <p className="text-sm text-muted-foreground font-medium">Loading application draft...</p>
+      </div>
+    );
   }
 
   return (
@@ -245,42 +310,13 @@ export default function ApplyPage() {
         <StepIndicator currentStep={currentStep} />
       </div>
 
-      {/* Category Tabs — only visible and interactive on Step 1 */}
-      {currentStep === 1 && (
-        <div className="mb-6">
-          <Tabs
-            value={selectedCategory}
-            onValueChange={handleCategoryChange}
-            className="w-full"
-          >
-            <TabsList className="grid w-full grid-cols-3 h-12">
-              {Object.entries(categoryConfig).map(([key, config]) => (
-                <TabsTrigger
-                  key={key}
-                  value={key}
-                  className={`text-sm font-semibold transition-all ${config.color}`}
-                  disabled={categoryLocked}
-                >
-                  {config.label}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
-          <p className="mt-2 text-xs text-muted-foreground text-center">
-            Select your application category. This cannot be changed after Step 1.
-          </p>
-        </div>
-      )}
-
-      {/* Locked category indicator for steps 2 & 3 */}
-      {currentStep > 1 && (
-        <div className="mb-6 flex items-center gap-2 rounded-lg border border-border/50 bg-muted/30 px-4 py-2.5">
-          <span className="text-sm text-muted-foreground">Category:</span>
-          <span className="text-sm font-bold text-foreground">
-            {categoryConfig[selectedCategory].label}
-          </span>
-        </div>
-      )}
+      {/* Locked category indicator */}
+      <div className="mb-6 flex items-center gap-2 rounded-lg border border-border/50 bg-muted/30 px-4 py-2.5">
+        <span className="text-sm text-muted-foreground">Category:</span>
+        <span className="text-sm font-bold text-foreground">
+          {categoryConfig[selectedCategory]?.label}
+        </span>
+      </div>
 
       {/* Form Content */}
       <Card className="border-border/50 shadow-lg">
@@ -295,17 +331,110 @@ export default function ApplyPage() {
               {currentStep === 2 && selectedCategory === Category.CIVIL && (
                 <CivilFields form={form} />
               )}
-              {currentStep === 2 &&
-                selectedCategory === Category.ELECTRICAL && (
-                  <ElectricalFields form={form} />
-                )}
-              {currentStep === 2 &&
-                selectedCategory === Category.ARCHITECTURE && (
-                  <ArchitectureFields form={form} />
-                )}
+              {currentStep === 2 && selectedCategory === Category.ELECTRICAL && (
+                <ElectricalFields form={form} />
+              )}
+              {currentStep === 2 && selectedCategory === Category.ARCHITECTURE && (
+                <ArchitectureFields form={form} />
+              )}
 
-              {/* Step 3: Review */}
+              {/* Step 3: Document Uploads */}
               {currentStep === 3 && (
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-lg font-medium text-foreground">Attach Supporting Documents</h3>
+                    <p className="text-sm text-muted-foreground">
+                      Upload certificates, registration proofs, and other category-relevant documents.
+                    </p>
+                  </div>
+
+                  {/* List of uploaded documents */}
+                  <div className="space-y-3">
+                    <h4 className="text-sm font-semibold text-foreground">Uploaded Documents</h4>
+                    {uploadedDocuments.length === 0 ? (
+                      <p className="text-sm text-muted-foreground italic bg-muted/20 border border-dashed rounded-lg p-4 text-center">
+                        No files uploaded yet.
+                      </p>
+                    ) : (
+                      <div className="divide-y border border-border rounded-lg bg-background">
+                        {uploadedDocuments.map((doc) => (
+                          <div key={doc.id} className="flex items-center justify-between p-3 text-sm">
+                            <div className="flex items-center gap-2 overflow-hidden">
+                              <Paperclip className="h-4 w-4 text-dmrc-blue shrink-0" />
+                              <span className="truncate font-medium text-foreground">{doc.fileName}</span>
+                              <span className="text-xs text-muted-foreground uppercase">({doc.documentType.replace(/_/g, " ")})</span>
+                            </div>
+                            <a
+                              href={doc.fileUrl}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="text-xs font-semibold text-dmrc-blue hover:underline"
+                            >
+                              View Document
+                            </a>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <Separator />
+
+                  {/* File uploader form */}
+                  <div className="grid gap-4 rounded-xl border bg-muted/10 p-5">
+                    <h4 className="text-sm font-semibold text-foreground">Upload New Document</h4>
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-medium text-muted-foreground">Document Type</label>
+                        <select
+                          value={docType}
+                          onChange={(e) => setDocType(e.target.value)}
+                          className="rounded-lg border bg-background px-3 py-2 text-sm focus:outline-none"
+                        >
+                          <option value="ISO_CERTIFICATE">ISO Certification</option>
+                          <option value="NABL_CERTIFICATE">NABL Lab Report</option>
+                          <option value="BIS_ACCREDITATION">BIS Accreditation</option>
+                          <option value="COMPLETION_CERTIFICATE">Completion Certificate</option>
+                          <option value="PURCHASE_ORDER">Purchase/Work Order</option>
+                          <option value="OTHER">Other Supporting Document</option>
+                        </select>
+                      </div>
+                      <div className="flex flex-col gap-1.5">
+                        <label className="text-xs font-medium text-muted-foreground">Choose File</label>
+                        <input
+                          type="file"
+                          onChange={(e) => setSelectedFile(e.target.files?.[0] || null)}
+                          className="rounded-lg border bg-background px-3 py-1.5 text-sm file:mr-2 file:rounded-md file:border-0 file:bg-dmrc-blue/10 file:px-2 file:py-1 file:text-xs file:font-semibold file:text-dmrc-blue hover:file:bg-dmrc-blue/20"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex justify-end">
+                      <Button
+                        type="button"
+                        onClick={handleFileUpload}
+                        disabled={isUploading || !selectedFile}
+                        className="gap-2 bg-dmrc-blue hover:bg-dmrc-blue-light text-white font-semibold"
+                        size="sm"
+                      >
+                        {isUploading ? (
+                          <>
+                            <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                            Uploading...
+                          </>
+                        ) : (
+                          <>
+                            <Upload className="h-3.5 w-3.5" />
+                            Upload File
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Step 4: Review */}
+              {currentStep === 4 && (
                 <FormReview
                   category={selectedCategory}
                   formValues={form.getValues()}
@@ -326,7 +455,7 @@ export default function ApplyPage() {
                 </Button>
 
                 <div className="flex items-center gap-3">
-                  {currentStep < 3 && (
+                  {currentStep < 4 && (
                     <Button
                       id="form-next-step"
                       type="button"
@@ -338,7 +467,7 @@ export default function ApplyPage() {
                     </Button>
                   )}
 
-                  {currentStep === 3 && (
+                  {currentStep === 4 && (
                     <Button
                       id="form-submit"
                       type="button"
@@ -372,8 +501,7 @@ export default function ApplyPage() {
           <DialogHeader>
             <DialogTitle>Confirm Submission</DialogTitle>
             <DialogDescription>
-              Are you sure you want to submit your vendor application? You can
-              only submit one application. This action cannot be undone.
+              Are you sure you want to submit your vendor application? This action cannot be undone.
             </DialogDescription>
           </DialogHeader>
           <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 text-sm text-amber-800">
@@ -407,5 +535,18 @@ export default function ApplyPage() {
         </DialogContent>
       </Dialog>
     </div>
+  );
+}
+
+export default function ApplyPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex flex-col items-center justify-center min-h-[400px] gap-3">
+        <Loader2 className="h-8 w-8 animate-spin text-dmrc-blue" />
+        <p className="text-sm text-muted-foreground font-medium">Mounting form...</p>
+      </div>
+    }>
+      <ApplyFormContent />
+    </Suspense>
   );
 }

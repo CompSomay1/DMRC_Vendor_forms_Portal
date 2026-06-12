@@ -23,6 +23,17 @@ export enum ApplicationStatus {
 export const Status = ApplicationStatus;
 export type Status = ApplicationStatus;
 
+export interface ApplicationDocument {
+  id: string;
+  applicationId: string;
+  documentType: string;
+  fileName: string;
+  fileUrl: string;
+  mimeType: string | null;
+  sizeBytes: number | null;
+  createdAt: string;
+}
+
 export interface VendorApplication {
   id: string;
   userId: string;
@@ -34,6 +45,7 @@ export interface VendorApplication {
   submittedAt: string | null;
   createdAt: string;
   updatedAt: string;
+  documents?: ApplicationDocument[];
 }
 
 export interface ApplicationSubmitInput {
@@ -82,6 +94,11 @@ export const FORM_STEPS: StepInfo[] = [
   },
   {
     step: 3,
+    title: "Document Upload",
+    description: "Attach supporting documents",
+  },
+  {
+    step: 4,
     title: "Review & Submit",
     description: "Review your application and submit",
   },
