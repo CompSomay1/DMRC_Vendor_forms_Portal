@@ -212,7 +212,159 @@ export function FormReview({ category, formValues }: FormReviewProps) {
               <ReviewItem label="SRI Valid Till" value={categoryFields.sriValidTill} />
             </div>
           )}
+
+          {/* ── Civil-specific review items ── */}
+          {category === Category.CIVIL && categoryFields.materialItem && (
+            <ReviewItem
+              label="Material / Item"
+              value={categoryFields.materialItem.replace(/_/g, " ")}
+            />
+          )}
+          {category === Category.CIVIL && categoryFields.materialItemName && (
+            <ReviewItem label="Material Name" value={categoryFields.materialItemName} />
+          )}
+          {category === Category.CIVIL && categoryFields.manufacturingOngoingPeriod && (
+            <ReviewItem label="Manufacturing Ongoing" value={`${categoryFields.manufacturingOngoingPeriod} years`} />
+          )}
+          {category === Category.CIVIL && (
+            <ReviewItem
+              label="Manufactured in India"
+              value={categoryFields.manufacturedInIndia ? "Yes" : `No (${categoryFields.countryOfOrigin || "—"})`}
+            />
+          )}
+
+          {/* ── Electrical-specific review items ── */}
+          {category === Category.ELECTRICAL && categoryFields.applyingAs && (
+            <ReviewItem label="Applying As" value={categoryFields.applyingAs} />
+          )}
+          {category === Category.ELECTRICAL && categoryFields.materialItem && (
+            <ReviewItem
+              label="Material / Item"
+              value={categoryFields.materialItem.replace(/_/g, " ")}
+            />
+          )}
+          {category === Category.ELECTRICAL && categoryFields.nameOfMake && (
+            <ReviewItem label="Name of Make" value={categoryFields.nameOfMake} />
+          )}
+          {category === Category.ELECTRICAL && categoryFields.capacity && (
+            <ReviewItem label="Capacity" value={`${categoryFields.capacity} ${categoryFields.capacityUnit || ""}`} />
+          )}
+          {category === Category.ELECTRICAL && categoryFields.rating && (
+            <ReviewItem label="Rating" value={`${categoryFields.rating} ${categoryFields.ratingUnit || ""}`} />
+          )}
+          {category === Category.ELECTRICAL && categoryFields.manufacturingOngoingPeriod && (
+            <ReviewItem label="Manufacturing Ongoing" value={`${categoryFields.manufacturingOngoingPeriod} years`} />
+          )}
+          {category === Category.ELECTRICAL && (
+            <ReviewItem
+              label="Manufactured in India"
+              value={categoryFields.manufacturedInIndia ? "Yes" : `No (${categoryFields.countryOfOrigin || "—"})`}
+            />
+          )}
         </div>
+
+        {/* Manufacturing Units (Civil) */}
+        {category === Category.CIVIL && categoryFields.manufacturingUnits && categoryFields.manufacturingUnits.length > 0 && (
+          <div className="mt-4">
+            <p className="text-sm font-semibold text-muted-foreground mb-2">
+              Manufacturing Units: {categoryFields.manufacturingUnits.length} entries
+            </p>
+            <div className="space-y-2">
+              {categoryFields.manufacturingUnits.map(
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (unit: any, i: number) => (
+                  <div key={i} className="rounded-md bg-muted/30 p-3 text-xs">
+                    <strong>Unit {i + 1}:</strong> {unit.address || "—"}
+                    {unit.certifications && unit.certifications.length > 0 && (
+                      <span className="ml-2 text-muted-foreground">
+                        ({unit.certifications.length} certifications)
+                      </span>
+                    )}
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Manufacturing Units (Electrical) */}
+        {category === Category.ELECTRICAL && categoryFields.manufacturingUnits && categoryFields.manufacturingUnits.length > 0 && (
+          <div className="mt-4">
+            <p className="text-sm font-semibold text-muted-foreground mb-2">
+              Manufacturing Units: {categoryFields.manufacturingUnits.length} entries
+            </p>
+            <div className="space-y-2">
+              {categoryFields.manufacturingUnits.map(
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (unit: any, i: number) => (
+                  <div key={i} className="rounded-md bg-muted/30 p-3 text-xs border border-border/40">
+                    <strong>Unit {i + 1}:</strong> {unit.address || "—"}
+                    <div className="grid grid-cols-2 gap-2 mt-1 text-muted-foreground">
+                      <span><strong>Total Land Area:</strong> {unit.totalLandArea} {unit.totalLandAreaUnit}</span>
+                      <span><strong>Covered Area:</strong> {unit.coveredArea} {unit.coveredAreaUnit}</span>
+                      <span><strong>Licensed Capacity:</strong> {unit.licensedCapacity} {unit.licensedCapacityUnit}</span>
+                      <span><strong>Actual Production:</strong> {unit.actualProduction} {unit.actualProductionUnit}</span>
+                    </div>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Parent Company Details (Electrical) */}
+        {category === Category.ELECTRICAL && categoryFields.parentCompanyDetails && categoryFields.parentCompanyDetails.length > 0 && (
+          <div className="mt-4">
+            <p className="text-sm font-semibold text-muted-foreground mb-2">
+              Parent Company Details: {categoryFields.parentCompanyDetails.length} entries
+            </p>
+            <div className="space-y-2">
+              {categoryFields.parentCompanyDetails.map(
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (p: any, i: number) => (
+                  <div key={i} className="rounded-md bg-muted/30 p-3 text-xs border border-border/40">
+                    <strong>Parent Company {i + 1}:</strong> {p.parentCompanyName || "—"} ({p.countryOfOrigin || "—"})
+                    <div className="text-muted-foreground mt-1">
+                      <span><strong>Manufacturing Period:</strong> {p.manufacturingPeriod}</span>
+                    </div>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* In-House Facilities (Electrical) */}
+        {category === Category.ELECTRICAL && (
+          <div className="mt-4">
+            <p className="text-sm font-semibold text-muted-foreground mb-2">In-House Facilities</p>
+            <div className="grid grid-cols-3 gap-2 text-xs">
+              <span><strong>Design:</strong> {categoryFields.hasInHouseDesign ? "✅ Available" : "❌ Not available"}</span>
+              <span><strong>Testing:</strong> {categoryFields.hasInHouseTesting ? "✅ Available" : "❌ Not available"}</span>
+              <span><strong>R&D:</strong> {categoryFields.hasInHouseRnd ? "✅ Available" : "❌ Not available"}</span>
+            </div>
+          </div>
+        )}
+
+        {/* Approvals (Civil) */}
+        {category === Category.CIVIL && categoryFields.approvals && categoryFields.approvals.length > 0 && (
+          <div className="mt-4">
+            <p className="text-sm font-semibold text-muted-foreground mb-2">
+              Approvals: {categoryFields.approvals.length} entries
+            </p>
+            <div className="space-y-2">
+              {categoryFields.approvals.map(
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (a: any, i: number) => (
+                  <div key={i} className="rounded-md bg-muted/30 p-3 text-xs grid grid-cols-2 gap-2">
+                    <span><strong>Agency:</strong> {a.agencyName || "—"}</span>
+                    <span><strong>Valid Till:</strong> {a.validTill || "—"}</span>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Purchase Orders summary */}
         {categoryFields.purchaseOrders && categoryFields.purchaseOrders.length > 0 && (
@@ -250,12 +402,118 @@ export function FormReview({ category, formValues }: FormReviewProps) {
           </div>
         )}
 
+        {/* Works Executed (Civil) */}
+        {category === Category.CIVIL && categoryFields.worksExecuted && categoryFields.worksExecuted.length > 0 && (
+          <div className="mt-4">
+            <p className="text-sm font-semibold text-muted-foreground mb-2">
+              Works Executed: {categoryFields.worksExecuted.length} entries
+            </p>
+          </div>
+        )}
+
+        {/* Financial Data (Civil) */}
+        {category === Category.CIVIL && categoryFields.financialData && categoryFields.financialData.length > 0 && (
+          <div className="mt-4">
+            <p className="text-sm font-semibold text-muted-foreground mb-2">
+              Financial Data: {categoryFields.financialData.length} years
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {categoryFields.financialData.map(
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (fd: any, i: number) => (
+                  <span key={i} className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/50">
+                    {fd.financialYear || "—"}
+                  </span>
+                )
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Financial Data (Electrical) */}
+        {category === Category.ELECTRICAL && categoryFields.financialData && categoryFields.financialData.length > 0 && (
+          <div className="mt-4">
+            <p className="text-sm font-semibold text-muted-foreground mb-2">
+              Financial Data: {categoryFields.financialData.length} years
+            </p>
+            <div className="space-y-2">
+              {categoryFields.financialData.map(
+                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                (fd: any, i: number) => (
+                  <div key={i} className="rounded-md bg-muted/30 p-3 text-xs grid grid-cols-3 gap-2 border border-border/40">
+                    <span><strong>Year:</strong> {fd.financialYear || "—"}</span>
+                    <span><strong>Turnover:</strong> {fd.turnover} {fd.turnoverCurrency}</span>
+                    <span><strong>Revenue:</strong> {fd.revenue} {fd.revenueCurrency}</span>
+                    <span><strong>P/L:</strong> {fd.profitLoss} {fd.profitLossCurrency}</span>
+                    <span><strong>Profitability:</strong> {fd.profitability}%</span>
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Type Test Certificates (Electrical) */}
+        {category === Category.ELECTRICAL && (
+          <div className="mt-4">
+            <p className="text-sm font-semibold text-muted-foreground mb-2">Type Test Information</p>
+            <div className="grid grid-cols-2 gap-2 text-xs mb-2">
+              <span><strong>Provided:</strong> {categoryFields.typeTestCertificateProvided ? "✅ Yes" : "❌ No"}</span>
+              <span><strong>From Accredited Lab:</strong> {categoryFields.typeTestFromAccreditedLab ? "✅ Yes" : "❌ No"}</span>
+              <span><strong>Proposed Model:</strong> {categoryFields.typeTestProposedModel ? "✅ Yes" : "❌ No"}</span>
+              <span><strong>Relevant Standard:</strong> {categoryFields.typeTestRelevantStandard ? "✅ Yes" : "❌ No"}</span>
+              <span><strong>Less than 5 years old:</strong> {categoryFields.typeTestLessThan5Years ? "✅ Yes" : "❌ No"}</span>
+            </div>
+          </div>
+        )}
+
+        {/* OCS Compliance (Civil) */}
+        {category === Category.CIVIL && categoryFields.ocsComplianceReports && categoryFields.ocsComplianceReports.length > 0 && (
+          <div className="mt-4">
+            <p className="text-sm font-semibold text-muted-foreground mb-2">
+              OCS Compliance Reports: {categoryFields.ocsComplianceReports.length} entries
+            </p>
+          </div>
+        )}
+
         {/* Projects summary (Architecture) */}
         {categoryFields.projects && categoryFields.projects.length > 0 && (
           <div className="mt-4">
             <p className="text-sm font-semibold text-muted-foreground mb-2">
               Projects: {categoryFields.projects.length} entries
             </p>
+          </div>
+        )}
+
+        {/* Undertakings summary (Civil) */}
+        {category === Category.CIVIL && (
+          <div className="mt-4">
+            <p className="text-sm font-semibold text-muted-foreground mb-2">Undertakings</p>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <span><strong>(a)</strong> {categoryFields.undertaking_a ? "✅ Accepted" : "❌ Not accepted"}</span>
+              <span><strong>(b) Service Period:</strong> {categoryFields.undertaking_b_servicePeriod || "—"} years</span>
+              <span><strong>(c)</strong> {categoryFields.undertaking_c ? "✅ Accepted" : "❌ Not accepted"}</span>
+              <span><strong>(d)</strong> {categoryFields.undertaking_d ? "✅ Accepted" : "❌ Not accepted"}</span>
+              <span><strong>(e)</strong> {categoryFields.undertaking_e ? "✅ Accepted" : "❌ Not accepted"}</span>
+              <span><strong>(f)</strong> {categoryFields.undertaking_f ? "✅ Accepted" : "❌ Not accepted"}</span>
+            </div>
+          </div>
+        )}
+
+        {/* Undertakings summary (Electrical) */}
+        {category === Category.ELECTRICAL && (
+          <div className="mt-4">
+            <p className="text-sm font-semibold text-muted-foreground mb-2">Undertakings</p>
+            <div className="grid grid-cols-2 gap-2 text-xs">
+              <span><strong>(a)</strong> {categoryFields.undertaking_a ? "✅ Accepted" : "❌ Not accepted"}</span>
+              <span><strong>(b) Service Period:</strong> {categoryFields.undertaking_b_servicePeriod || "—"} years</span>
+              <span><strong>(c)</strong> {categoryFields.undertaking_c ? "✅ Accepted" : "❌ Not accepted"}</span>
+              <span><strong>(d)</strong> {categoryFields.undertaking_d ? "✅ Accepted" : "❌ Not accepted"}</span>
+              <span><strong>(e)</strong> {categoryFields.undertaking_e ? "✅ Accepted" : "❌ Not accepted"}</span>
+              <span><strong>(f)</strong> {categoryFields.undertaking_f ? "✅ Accepted" : "❌ Not accepted"}</span>
+              <span><strong>(g) EMI / EMC:</strong> {categoryFields.undertaking_g || "—"}</span>
+              <span><strong>(h)</strong> {categoryFields.undertaking_h ? "✅ Accepted" : "❌ Not accepted"}</span>
+            </div>
           </div>
         )}
       </section>

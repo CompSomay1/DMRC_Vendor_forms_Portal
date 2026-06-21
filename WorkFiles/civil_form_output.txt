@@ -1,0 +1,407 @@
+APPLICATION FORM (CIVIL)
+A.
+GENERAL INFORMATION
+1.
+Applying as:
+MANUFACTURER | AUTHORISED RESELLER | FABRICATORMANUFACTURER | AUTHORISED RESELLER | FABRICATOR``
+MANUFACTURER | AUTHORISED RESELLER | FABRICATOR
+MANUFACTURER | AUTHORISED RESELLER | FABRICATOR
+`
+`
+Drop-down Menu consisting of these items: 
+“Manufacturer”, “Authorised Reseller”, “Fabricator”, all caps.
+2.
+Material / Item / Product:
+``C25 – INTEGRAL CRYSTALLINE WATERPROOFINGC25 – INTEGRAL CRYSTALLINE WATERPROOFING
+`
+`
+C25 – INTEGRAL CRYSTALLINE WATERPROOFING
+C25 – INTEGRAL CRYSTALLINE WATERPROOFING
+Drop-down Menu consisting of all Civil items. Names to be populated
+in the format “S. No. – Details of Materials / Products”, all caps.
+3.
+Name of material / item / product:
+Name of material / item / product…Name of material / item / product…
+Name of material / item / product…
+Name of material / item / product…
+Text Input
+4.
+Other details if any:
+Other details…Other details…
+Other details…
+Other details…
+Text Input
+5.
+Details of Manufacturing Unit / Factory:
+Also submit Independent Certifications / Accreditations available for the manufacturing units (e.g., ISO 9001, ISO 14001, etc.).
+Note:DMRC reserves the rights to inspect the premises for the verification of the submitted details.
+LocationLocationAddress…Address…Text InputLocation Picker
+Location
+Location
+Address…
+Address…
+++Valid TillValid TillUpload CertificateUpload CertificateCertification Name…Certification Name…
++
++
+Valid Till
+Valid Till
+Upload Certificate
+Upload Certificate
+Certification Name…
+Certification Name…
+TextButtonDateAdd Certification
+Input(only .pdf)PickerButton
+``Upload DocumentUpload DocumentRateRateUnit…Unit…Licensed Production Capacity…Licensed Production Capacity…
+`
+`
+Upload Document
+Upload Document
+Rate
+Rate
+Unit…
+Unit…
+Licensed Production Capacity…
+Licensed Production Capacity…
+Text InputText InputDrop-down MenuButton(numerical only)consisting of(only .pdf)
+“per month” & “per year”
+Actual Production…Actual Production…Upload DocumentUpload DocumentRateRate``Unit…Unit…++Text InputTextDrop-down MenuButtonAdd(numerical only)Inputconsisting of(only .pdf)Row
+Actual Production…
+Actual Production…
+Upload Document
+Upload Document
+Rate
+Rate
+`
+`
+Unit…
+Unit…
++
++
+“per month” & “per year”Button
+All the above fields (from ‘Address…’ till the 2nd ‘Upload Document’) are for one manufacturing Unit / Factory. The applicant may add all these details for more Manufacturing Units / Factories using the ‘Add Row’ button.
+B.
+``COMPANY PROFILE AND EXPERIENCE OF APPLICANT
+`
+`
+1.
+Company details:
+Details of Board of Directors…Details of Board of Directors…
+Details of Board of Directors…
+Details of Board of Directors…
+Name of Company…Name of Company…Uneditable, greyed-out text input. 
+Name of Company…
+Name of Company…
+To be auto-filled from the applicant’s registration details.
+Upload DocumentUpload DocumentDetails of Share Holding…Details of Share Holding…
+Upload Document
+Upload Document
+Details of Share Holding…
+Details of Share Holding…
+++Upload DocumentUpload Document
++
++
+Upload Document
+Upload Document
+Text InputsButtonsAdd Row
+(only .pdf)Button
+2.
+Is the material / item / product manufactured in India?
+Authorisation Document for Manufacturing / BusinessCountry of Origin…YesNo
+Authorisation Document for Manufacturing / Business
+Country of Origin…
+CheckboxesText InputButton (only .pdf)
+(To be visible when(Always visible)
+‘No’ is selected.)
+3.
+Technical catalogue / brochure of the company (a maximum size of 5 MB):
+Upload DocumentUpload DocumentButton (only .pdf)
+Upload Document
+Upload Document
+4.
+How long has the manufacturing of the material / item / product been ongoing?
+Manufacturing period…Manufacturing period…years
+Manufacturing period…
+Manufacturing period…
+Text Input (numerical only)Text
+5.
+Organisation details of the manufacturing company:
+++Experience and Competency of Key ManpowerExperience and Competency of Key ManpowerDocument details…Document details…Details of Manpower at Various LevelsDetails of Manpower at Various LevelsOrganisation ChartOrganisation ChartButtonButtonButtonAdd Text Input
++
++
+Experience and Competency of Key Manpower
+Experience and Competency of Key Manpower
+Document details…
+Document details…
+Details of Manpower at Various Levels
+Details of Manpower at Various Levels
+Organisation Chart
+Organisation Chart
+(only .pdf)(only .pdf)(only .pdf)Doc.(added each time
+Buttona Doc. is added)
+C.
+``APPROVAL IN OTHER ORGANISATIONS
+`
+`
+1.
+Approval / registration / empanelment certificates from Metro / Railways / RDSO / Government, Semi Govt. or Govt. Undertaking organisations / PSUs / SPVs / Govt. Owned Institution / Private Corporation listed in NSE or BSE (India): 
+(a minimum of three approvals with at least one in Metro / Railways organisation in the last three years.)
+Valid TillValid TillCertificate DateCertificate DateUpload CertificateUpload CertificateAgency Name…Agency Name…Type of AgencyType of Agency
+Valid Till
+Valid Till
+Certificate Date
+Certificate Date
+Upload Certificate
+Upload Certificate
+Agency Name…
+Agency Name…
+Type of Agency
+Type of Agency
+``
+`
+`
+``Valid TillValid TillCertificate DateCertificate DateUpload CertificateUpload CertificateAgency Name…Agency Name…Type of AgencyType of Agency
+`
+`
+Valid Till
+Valid Till
+Certificate Date
+Certificate Date
+Upload Certificate
+Upload Certificate
+Agency Name…
+Agency Name…
+Type of Agency
+Type of Agency
+Type of AgencyType of Agency++Valid TillValid TillCertificate DateCertificate DateAgency Name…Agency Name…Upload CertificateUpload Certificate``
+Type of Agency
+Type of Agency
++
++
+Valid Till
+Valid Till
+Certificate Date
+Certificate Date
+Agency Name…
+Agency Name…
+Upload Certificate
+Upload Certificate
+`
+`
+Drop-downTextButtonsDateAdd Row
+Menus consistingInputs(only .pdf)PickersButton
+of these items
+D.
+``DETAILS OF EXPERIENCE PROVIDING THE MATERIAL / ITEM / PRODUCT
+`
+`
+1.
+Purchase / Work Orders from clients of Metro / Railways / RDSO / Government, Semi Govt. or Govt. Undertaking organisations / PSUs / SPVs / Govt. Owned Institution / Private Corporation listed in NSE or BSE (India) (Total 5 nos. in the last 5 years):
+The Purchase / Work Orders should be on the letterhead of the client and must contain the contact details of the client's representative for verification.
+``ClientTypeClientTypeType / Model of Material / Item / Product…Type / Model of Material / Item / Product…Scope of Work…Scope of Work…Client Name …Client Name …Issua-nce DateIssua-nce DateUpload Work OrderUpload Work OrderDrop-downTextTextTextButtonDate
+`
+`
+Client
+Type
+Client
+Type
+Type / Model of Material / Item / Product…
+Type / Model of Material / Item / Product…
+Scope of Work…
+Scope of Work…
+Client Name …
+Client Name …
+Issua-nce Date
+Issua-nce Date
+Upload Work Order
+Upload Work Order
+MenuInputInputInput(only .pdf)Picker
+Total Value…Total Value…Unit…Unit…Total Quantity…Total Quantity…Currency…Currency…Text Input (numerical only)Text InputText Input (numerical only)Text Input
+Total Value…
+Total Value…
+Unit…
+Unit…
+Total Quantity…
+Total Quantity…
+Currency…
+Currency…
+All the above fields are for one Purchase / Work Order. In the actual appplication, it should be mandatory for the applicant to submit details of five Purchase / Work Orders.
+2.
+Completion certificates from clients of Metro / Railways / RDSO / Government, Semi Govt. or Govt. Undertaking organisations / PSUs / SPVs / Govt. Owned Institution / Private Corporation listed in NSE or BSE (India) (Total 5 nos. in the last 5 years):
+Client TypeClient Type``Client Name…Client Name…Upload CertificateUpload CertificateCertificate DateCertificate DateDrop-downTextButtonDate
+Client Type
+Client Type
+`
+`
+Client Name…
+Client Name…
+Upload Certificate
+Upload Certificate
+Certificate Date
+Certificate Date
+MenuInput (only .pdf)Picker
+All the above fields are for one Completion certificate. In the actual appplication, it should be mandatory for the applicant to submit details of five Completion certificates.
+3.
+Work executed in Metro / Railways / any other infrastructure related Govt. organisation (in the last 5 years, one for each year):
+Issuance DateIssuance DateUpload Work OrderUpload Work OrderClient TypeClient Type``Client Name…Client Name…Drop-downTextButtonDate
+Issuance Date
+Issuance Date
+Upload Work Order
+Upload Work Order
+Client Type
+Client Type
+`
+`
+Client Name…
+Client Name…
+MenuInput (only .pdf)Picker
+All the above fiel ds are for one Work Order. In the actual appplication, it should be mandatory for the applicant to submit details of five Work Orders.
+E.
+``QUALITY PLAN AND CERTIFICATION
+`
+`
+1.
+Quality Plan for the manufacturing of the material / item / product:
+Plan should include quality checks and tests conducted on raw material, bought-out items / components, stage wise quality checks, etc.
+Upload DocumentUpload DocumentBrief details…Brief details…
+Upload Document
+Upload Document
+Brief details…
+Brief details…
+TextButton
+Input(only .pdf)
+2.
+Accreditation of BIS / IGBC / USGB and/or Test Reports from Laboratories accredited to ISO / IEC 17025:2017 International Standard:
+Certification Name…Certification Name…Valid TillValid Till++Upload CertificateUpload Certificate
+Certification Name…
+Certification Name…
+Valid Till
+Valid Till
++
++
+Upload Certificate
+Upload Certificate
+TextButtonDateAdd Row
+Input(only .pdf)PickerButton
+3.
+Reference of Indian / International codes for the manufacturing and testing of the material / item / product:
+++Upload DocumentUpload DocumentApplicable Code…Applicable Code…
++
++
+Upload Document
+Upload Document
+Applicable Code…
+Applicable Code…
+TextButtonAdd Row
+Input(only .pdf)Button
+4.
+Details of In-House Testing facilities:
+a.Is the in-house testing facility accredited for the relevant standardby an independent agency?
+++Upload DocumentUpload DocumentDetails…Details…YesNo
++
++
+Upload Document
+Upload Document
+Details…
+Details…
+CheckboxesText InputButton (only .pdf)Add Row Button
+++Upload DocumentUpload DocumentTo be visible when ‘Yes’ is selected
++
++
+Upload Document
+Upload Document
+b.Whether any tests are conducted in an external facility?
+Details…Details…YesNo
+Details…
+Details…
+CheckboxesText InputButton (only .pdf)Add Row Button
+To be visible when ‘Yes’ is selected
+F.
+``FINANCIAL DATA
+`
+`
+1.
+Proft & Loss Statements and Balance Sheets for the the last three financial years:
+(Must have been audited by a Chartered Accountant)
+UploadBalance SheetUploadBalance SheetUpload Proft & Loss StatementsUpload Proft & Loss StatementsFinancial YearFinancial Year``Drop-downButtonButton
+Upload
+Balance Sheet
+Upload
+Balance Sheet
+Upload Proft & Loss Statements
+Upload Proft & Loss Statements
+Financial Year
+Financial Year
+`
+`
+Menu #(only .pdf)(only .pdf)
+All the above fields are for one Financial Year. In the actual appplication, it should be mandatory for the applicant to submit details for the previous three Financial Years.
+# Drop-down Menu contains three previous Financial Years (for ex., 2024 – 25, 2023 – 24, 2022 – 23). These entries are not fixed and depend on the date of application.
+G.
+``COMPLIANCE WITH OUTLINE CONSTRUCTION SPECIFICTIONS OF DMRC
+`
+`
+1.
+Test Certificates / Reports from Laboratories accredited to ISO / IEC 17025:2017 International Standard (3rd party lab) in compliance with Outline Construction Specifications (OCS) for Civil works of DMRC (Tests must have been conducted within the previous 12 months from the date of submission of this application):
+In case standards are not specified in the OCS, the compliance of test requirements as per relevant Indian / International standards shall be reviewed.
+++Issuance DateIssuance DateValid TillValid TillUpload Test Certificate / ReportUpload Test Certificate / ReportLaboratory Name…Laboratory Name…Standard Name…Standard Name…
++
++
+Issuance Date
+Issuance Date
+Valid Till
+Valid Till
+Upload Test Certificate / Report
+Upload Test Certificate / Report
+Laboratory Name…
+Laboratory Name…
+Standard Name…
+Standard Name…
+TextTextButtonDateDateAdd Row
+InputInput(only .pdf)Picker #PickerButton
+# It should not be possible to pick a date beyond 12 months from the current date.
+H.
+``UNDERTAKINGS
+`
+`
+We hereby confirm that:
+a.this application is in accordance with the relevant standard(s):
+YesNo
+Checkboxes
+b.the material / item / product is a proven one and has been in service for:
+Service period…Service period…years
+Service period…
+Service period…
+Text InputText
+(numerical only)
+c.we shall provide technical support during the lifetime of the material / item / product, irrespective of upgradation / phasing-out of the material / item / product:
+YesNo
+Checkboxes
+d.we shall comply with all the conditions of DMRC's Vendor Policy including the submission of affidavits / documents as per the Annexures-A, B, C, D and E.
+Upload duly filled and signed Annexure-EUpload duly filled and signed Annexure-EUpload duly filled and signed Annexure-DUpload duly filled and signed Annexure-DUpload duly filled and signed Annexure-CUpload duly filled and signed Annexure-CUpload duly filled and signed Annexure-BUpload duly filled and signed Annexure-BUpload duly filled and signed Annexure-AUpload duly filled and signed Annexure-AYesNo
+Upload duly filled and signed Annexure-E
+Upload duly filled and signed Annexure-E
+Upload duly filled and signed Annexure-D
+Upload duly filled and signed Annexure-D
+Upload duly filled and signed Annexure-C
+Upload duly filled and signed Annexure-C
+Upload duly filled and signed Annexure-B
+Upload duly filled and signed Annexure-B
+Upload duly filled and signed Annexure-A
+Upload duly filled and signed Annexure-A
+Checkboxes
+Buttons (only .pdf) (to be visible when ‘Yes’ is selected)
+e.we are aware that despite inclusion in the “List of Empanelled Makes / Vendors” we are liable to submit technical compliances in respective contract as per the stipulated Technical Specifications in the prescribed format, prior to getting confirmed order from the Contractor for supply of material / item / product, or prior to taking up the work for DMRC project.
+YesNo
+Checkboxes
+f.all the statements, information, and answers given above are true and no information has been suppressed. In case any information provided by us is found incorrect or misleading, DMRC will be at liberty to take suitable penal action as considered appropriate.
+YesNo
+Checkboxes
+SAVE AS DRAFTSAVE AS DRAFTCANCELCANCELSUBMIT APPLICATIONSUBMIT APPLICATIONButtonButtonButton
+SAVE AS DRAFT
+SAVE AS DRAFT
+CANCEL
+CANCEL
+SUBMIT APPLICATION
+SUBMIT APPLICATION
+(with a Confirmation(with Confirmation and
+Dialogue)Declaration Dialogues)

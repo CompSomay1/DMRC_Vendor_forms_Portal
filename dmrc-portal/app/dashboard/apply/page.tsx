@@ -69,7 +69,7 @@ function ApplyFormContent() {
   const [docType, setDocType] = useState<string>("ISO_CERTIFICATE");
   const [isUploading, setIsUploading] = useState(false);
 
-  const steps = selectedCategory === Category.ARCHITECTURE
+  const steps = (selectedCategory === Category.ARCHITECTURE || selectedCategory === Category.CIVIL || selectedCategory === Category.ELECTRICAL)
     ? [
         {
           step: 1,
@@ -104,38 +104,144 @@ function ApplyFormContent() {
         lifespan: "",
       },
       categoryFields: {
-        isCodeConformance: "",
-        internationalCodeConformance: "",
-        nablAccredited: false,
-        isoCertified: false,
-        purchaseOrders: [
-          {
-            clientType: "",
-            clientName: "",
-            totalValue: "",
-            currency: "INR",
-            totalQuantity: "",
-            unit: "",
-            issuanceDate: "",
-          },
-        ],
-        completionCertificates: [
-          { clientType: "", clientName: "", certificateDate: "" },
-        ],
+        // Civil and Electrical default values (Sections A-H)
+        materialItem: "",
+        materialItemName: "",
+        otherDetails: "",
+        manufacturingUnits: [{ address: "", certifications: [], licensedCapacity: "", licensedCapacityUnit: "per_month", licensedCapacityDocUrl: "", actualProduction: "", actualProductionUnit: "per_month", actualProductionDocUrl: "", totalLandArea: "", totalLandAreaUnit: "sq_meters", landOwnershipDocUrl: "", coveredArea: "", coveredAreaUnit: "sq_meters", machineryWriteUp: "", machineryDocUrl: "" }],
+        directorsShareholding: [],
+        manufacturedInIndia: true,
+        countryOfOrigin: "",
+        authorisationDocUrl: "",
+        technicalCatalogueUrl: "",
+        manufacturingOngoingPeriod: "",
+        orgChartUrl: "",
+        manpowerLevelsUrl: "",
+        keyManpowerUrl: "",
+        approvals: [{ agencyType: "", agencyName: "", certificateDate: "", validTill: "", certificateUrl: "" }],
+        purchaseOrders: Array.from({ length: 5 }, () => ({
+          clientType: "",
+          clientName: "",
+          contractorName: "",
+          contractNumber: "",
+          scopeOfWork: "",
+          materialType: "",
+          typeModel: "",
+          issuanceDate: "",
+          workOrderUrl: "",
+          totalQuantity: "",
+          unit: "",
+          totalValue: "",
+          currency: "INR",
+          purchaseOrderUrl: "",
+          purchaseOrderDate: "",
+          performanceCertificateUrl: "",
+          performanceCertificateDate: "",
+          performanceCertificateValidTill: "",
+        })),
+        completionCertificates: Array.from({ length: 5 }, () => ({
+          clientType: "",
+          clientName: "",
+          certificateDate: "",
+          certificateUrl: "",
+        })),
+        worksExecuted: Array.from({ length: 5 }, () => ({ clientType: "", clientName: "", issuanceDate: "", workOrderUrl: "" })),
         qualityPlanDetails: "",
-        financialYears: [{ financialYear: "" }],
+        qualityPlanUrl: "",
+        qualityCertifications: [],
+        applicableCodes: [],
+        inHouseTestingAccredited: false,
+        inHouseTestingDetails: "",
+        inHouseTestingDocUrl: "",
+        externalTestingConducted: false,
+        externalTestingDetails: "",
+        externalTestingDocUrl: "",
+        financialData: Array.from({ length: 3 }, () => ({
+          financialYear: "",
+          balanceSheetUrl: "",
+          profitLossUrl: "",
+          turnover: "",
+          turnoverCurrency: "INR",
+          revenue: "",
+          revenueCurrency: "INR",
+          profitLoss: "",
+          profitLossCurrency: "INR",
+          profitability: "",
+          annualReportUrl: "",
+          itrUrl: "",
+        })),
+        ocsComplianceReports: [],
         undertaking_a: false,
         undertaking_b_servicePeriod: "",
         undertaking_c: false,
         undertaking_d: false,
+        undertaking_d_annexureAUrl: "",
+        undertaking_d_annexureBUrl: "",
+        undertaking_d_annexureCUrl: "",
+        undertaking_d_annexureDUrl: "",
+        undertaking_d_annexureEUrl: "",
+        undertaking_d_annexure2AUrl: "",
+        undertaking_d_annexure2BUrl: "",
         undertaking_e: false,
         undertaking_f: false,
+        // Electrical additional default values
+        applyingAs: undefined,
+        nameOfMake: "",
+        capacity: "",
+        capacityUnit: "HP",
+        rating: "",
+        ratingUnit: "V",
+        parentCompanyDetails: [],
+        additionalOrgDocUrl: "",
+        hasInHouseDesign: false,
+        inHouseDesignDetails: "",
+        inHouseDesignDocUrl: "",
+        hasInHouseTesting: false,
+        hasInHouseRnd: false,
+        inHouseRndDetails: "",
+        inHouseRndDocUrl: "",
+        suppliedOtherProjects: false,
+        otherProjects: [],
+        hasBlacklisting: false,
+        blacklistingDetails: [],
+        hasLitigation: false,
+        litigationDetails: [],
+        inHouseTestingAsPerStd: false,
+        inHouseTestingAsPerStdDetails: [],
+        inHouseTestingAsPerProductStd: false,
+        inHouseTestingAsPerProductStdDetails: [],
+        inHouseTestingAccreditedDetails: [],
+        inHouseAllTestsConducted: false,
+        inHouseAllTestsConductedDetails: [],
+        netWorth: "",
+        netWorthCurrency: "INR",
+        netWorthDocUrl: "",
+        liquidity: "",
+        liquidityDocUrl: "",
+        solvencyDetails: "",
+        solvencyBankName: "",
+        solvencyDate: "",
+        solvencyDocUrl: "",
+        typeTestCertificateProvided: false,
+        typeTestCertificates: [],
+        typeTestFromAccreditedLab: false,
+        typeTestAccreditedLabs: [],
+        typeTestProposedModel: undefined,
+        typeTestRelevantStandard: undefined,
+        typeTestLessThan5Years: undefined,
+        afterSalesDelhiNcr: [{ details: "", documentUrl: "" }],
+        afterSalesOutsideDelhiNcr: [{ details: "", documentUrl: "" }],
+        undertaking_g: "Not Applicable",
+        undertaking_g_emiEmcStudyUrl: "",
+        undertaking_h: false,
         // Architecture default values
         isCodes: [],
         internationalCodes: [],
+        nablAccredited: false,
         nablEntries: [],
         internationalLabTested: false,
         internationalLabEntries: [],
+        isoCertified: false,
         isoEntries: [],
         greenCertified: false,
         greenEntries: [],
@@ -245,7 +351,7 @@ function ApplyFormContent() {
       await saveDraftProgress();
       setCurrentStep(3);
     } else if (currentStep === 3) {
-      if (selectedCategory !== Category.ARCHITECTURE) {
+      if (selectedCategory !== Category.ARCHITECTURE && selectedCategory !== Category.CIVIL && selectedCategory !== Category.ELECTRICAL) {
         setCurrentStep(4);
       }
     }
@@ -371,17 +477,17 @@ function ApplyFormContent() {
 
               {/* Step 2: Category-Specific Fields */}
               {currentStep === 2 && selectedCategory === Category.CIVIL && (
-                <CivilFields form={form} />
+                <CivilFields form={form} applicationId={draftId || ""} />
               )}
               {currentStep === 2 && selectedCategory === Category.ELECTRICAL && (
-                <ElectricalFields form={form} />
+                <ElectricalFields form={form} applicationId={draftId || ""} />
               )}
               {currentStep === 2 && selectedCategory === Category.ARCHITECTURE && (
                 <ArchitectureFields form={form} applicationId={draftId || ""} />
               )}
 
               {/* Step 3: Document Uploads */}
-              {currentStep === 3 && selectedCategory !== Category.ARCHITECTURE && (
+              {currentStep === 3 && selectedCategory !== Category.ARCHITECTURE && selectedCategory !== Category.CIVIL && selectedCategory !== Category.ELECTRICAL && (
                 <div className="space-y-6">
                   <div>
                     <h3 className="text-lg font-medium text-foreground">Attach Supporting Documents</h3>
@@ -476,8 +582,8 @@ function ApplyFormContent() {
               )}
 
               {/* Step 4: Review */}
-              {((currentStep === 4 && selectedCategory !== Category.ARCHITECTURE) ||
-                (currentStep === 3 && selectedCategory === Category.ARCHITECTURE)) && (
+              {((currentStep === 4 && selectedCategory !== Category.ARCHITECTURE && selectedCategory !== Category.CIVIL && selectedCategory !== Category.ELECTRICAL) ||
+                (currentStep === 3 && (selectedCategory === Category.ARCHITECTURE || selectedCategory === Category.CIVIL || selectedCategory === Category.ELECTRICAL))) && (
                 <FormReview
                   category={selectedCategory}
                   formValues={form.getValues()}

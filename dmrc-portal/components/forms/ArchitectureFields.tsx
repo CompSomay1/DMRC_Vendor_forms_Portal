@@ -9,10 +9,14 @@ import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
+  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { MATERIAL_GROUPS } from "./materials";
 import {
   FormControl,
   FormField,
@@ -253,17 +257,20 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
                     <SelectValue placeholder="Select material / item / product" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
-                  <SelectItem value="A1_FLOORING_RAISED_FLOOR">A1 – Flooring – Raised Floor</SelectItem>
-                  <SelectItem value="A2_FLOORING_TILES">A2 – Flooring – Tiles</SelectItem>
-                  <SelectItem value="A3_CLADDING_ACP">A3 – Cladding – ACP</SelectItem>
-                  <SelectItem value="A4_CLADDING_STONE">A4 – Cladding – Stone</SelectItem>
-                  <SelectItem value="A5_CEILING_METAL">A5 – Ceiling – Metal</SelectItem>
-                  <SelectItem value="A6_GLAZING_DGU">A6 – Glazing – DGU</SelectItem>
-                  <SelectItem value="A7_ROOFING_STANDING_SEAM">A7 – Roofing – Standing Seam</SelectItem>
-                  <SelectItem value="A8_PAINTING_EXTERIOR">A8 – Painting – Exterior</SelectItem>
-                  <SelectItem value="A9_WATERPROOFING">A9 – Waterproofing</SelectItem>
-                  <SelectItem value="A10_SEALANT_ADHESIVE">A10 – Sealant & Adhesive</SelectItem>
+                <SelectContent className="max-h-80 overflow-y-auto">
+                  {MATERIAL_GROUPS.map((group, groupIdx) => (
+                    <SelectGroup key={group.sNo}>
+                      <SelectLabel className="text-teal-600 font-bold text-xs px-2 py-1.5 uppercase tracking-wider bg-muted/30">
+                        {group.sNo} – {group.category}
+                      </SelectLabel>
+                      {group.items.map((item) => (
+                        <SelectItem key={item.value} value={item.value} className="pl-6 text-xs whitespace-normal h-auto py-2">
+                          {item.label}
+                        </SelectItem>
+                      ))}
+                      {groupIdx < MATERIAL_GROUPS.length - 1 && <SelectSeparator />}
+                    </SelectGroup>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />
