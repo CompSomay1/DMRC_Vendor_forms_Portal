@@ -92,9 +92,10 @@ export async function PUT(
       if (!validatedFormData.success) {
         return NextResponse.json(
           {
-            error:
-              validatedFormData.error.issues[0]?.message ||
-              "Submitted application data is invalid",
+            error: validatedFormData.error.issues[0]
+              ? `${validatedFormData.error.issues[0].path.join(".")}: ${validatedFormData.error.issues[0].message}`
+              : "Submitted application data is invalid",
+            issues: validatedFormData.error.issues,
           },
           { status: 400 }
         );

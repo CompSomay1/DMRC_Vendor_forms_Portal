@@ -174,7 +174,7 @@ const AGENCY_TYPE_OPTIONS = [
 ];
 
 // ─── Section Header Component ───
-function SectionHeader({ letter, title, subtitle, icon: Icon, color = "bg-teal-600" }: {
+function SectionHeader({ letter, title, subtitle, icon: Icon, color = "bg-blue-800" }: {
   letter: string;
   title: string;
   subtitle?: string;
@@ -187,7 +187,7 @@ function SectionHeader({ letter, title, subtitle, icon: Icon, color = "bg-teal-6
         {letter}
       </div>
       <div className="flex items-center gap-2">
-        <Icon className="h-5 w-5 text-teal-600" />
+        <Icon className="h-5 w-5 text-blue-800" />
         <div>
           <h3 className="text-lg font-bold text-foreground">{title}</h3>
           {subtitle && <p className="text-xs text-muted-foreground">{subtitle}</p>}
@@ -572,8 +572,15 @@ export function CivilFields({ form, applicationId }: CivilFieldsProps) {
                 form={form}
                 index={idx}
                 fieldPrefix="categoryFields.approvals"
+                selectFields={[
+                  { name: "agencyType", label: "Agency Type", placeholder: "Select agency type", options: AGENCY_TYPE_OPTIONS },
+                ]}
                 textFields={[
                   { name: "agencyName", label: "Agency Name", placeholder: "e.g., Delhi Metro Rail Corp." },
+                ]}
+                dateFields={[
+                  { name: "certificateDate", label: "Certificate Date" },
+                  { name: "validTill", label: "Valid Till" },
                 ]}
                 onRemove={() => removeApproval(idx)}
                 applicationId={applicationId}
@@ -960,7 +967,7 @@ export function CivilFields({ form, applicationId }: CivilFieldsProps) {
           SECTION F: FINANCIAL DATA
          ════════════════════════════════════════════════════════ */}
       <section className="space-y-5">
-        <SectionHeader letter="F" title="Financial Data" subtitle="Profit & Loss Statements and Balance Sheets for the last 3 financial years" icon={DollarSign} color="bg-amber-600" />
+        <SectionHeader letter="F" title="Financial Data" subtitle="Profit & Loss Statements and Balance Sheets for the last 3 financial years" icon={DollarSign} color="bg-blue-800" />
 
         <div className="space-y-4">
           {[0, 1, 2].map((idx) => (
@@ -1011,7 +1018,7 @@ export function CivilFields({ form, applicationId }: CivilFieldsProps) {
           SECTION G: OCS COMPLIANCE
          ════════════════════════════════════════════════════════ */}
       <section className="space-y-5">
-        <SectionHeader letter="G" title="Compliance with OCS of DMRC" subtitle="Test certificates in compliance with Outline Construction Specifications" icon={FileCheck} color="bg-indigo-600" />
+        <SectionHeader letter="G" title="Compliance with OCS of DMRC" subtitle="Test certificates in compliance with Outline Construction Specifications" icon={FileCheck} color="bg-blue-800" />
 
         <div className="space-y-4 rounded-xl border border-border/50 bg-card p-5">
           <div className="flex items-center justify-between">
@@ -1110,7 +1117,7 @@ export function CivilFields({ form, applicationId }: CivilFieldsProps) {
           SECTION H: UNDERTAKINGS
          ════════════════════════════════════════════════════════ */}
       <section className="space-y-5">
-        <SectionHeader letter="H" title="Undertakings" subtitle="Confirm compliance and accept terms" icon={FileSignature} color="bg-rose-600" />
+        <SectionHeader letter="H" title="Undertakings" subtitle="Confirm compliance and accept terms" icon={FileSignature} color="bg-blue-800" />
 
         <div className="space-y-4">
           {/* (a) */}
@@ -1303,7 +1310,7 @@ function ManufacturingUnitCard({
       {/* Certifications */}
       <div className="space-y-3 border-t border-border/40 pt-3">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-bold text-teal-700">Certifications (ISO 9001, ISO 14001, etc.)</span>
+          <span className="text-xs font-bold text-blue-800">Certifications (ISO 9001, ISO 14001, etc.)</span>
           <Button
             type="button"
             variant="outline"

@@ -234,7 +234,7 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
       {/* Section A: Material / Item Details */}
       <section className="space-y-5">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-sm font-bold text-white shadow-md shadow-teal-600/20">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-800 text-sm font-bold text-white shadow-md shadow-blue-800/20">
             A
           </div>
           <div>
@@ -260,7 +260,7 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
                 <SelectContent className="max-h-80 overflow-y-auto">
                   {MATERIAL_GROUPS.map((group, groupIdx) => (
                     <SelectGroup key={group.sNo}>
-                      <SelectLabel className="text-teal-600 font-bold text-xs px-2 py-1.5 uppercase tracking-wider bg-muted/30">
+                      <SelectLabel className="text-blue-800 font-bold text-xs px-2 py-1.5 uppercase tracking-wider bg-muted/30">
                         {group.sNo} – {group.category}
                       </SelectLabel>
                       {group.items.map((item) => (
@@ -284,7 +284,7 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
       {/* Section B: Qualifying Criteria */}
       <section className="space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-600 text-sm font-bold text-white shadow-md shadow-teal-600/20">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-800 text-sm font-bold text-white shadow-md shadow-blue-800/20">
             B
           </div>
           <div>
@@ -297,7 +297,7 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
         <div className="space-y-4 rounded-xl border border-border/50 bg-card p-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Code className="h-5 w-5 text-teal-600" />
+              <Code className="h-5 w-5 text-blue-800" />
               <h4 className="text-sm font-bold text-foreground">1. Relevant IS Code Conformance</h4>
             </div>
             <Button
@@ -339,7 +339,7 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
         <div className="space-y-4 rounded-xl border border-border/50 bg-card p-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Layers className="h-5 w-5 text-teal-600" />
+              <Layers className="h-5 w-5 text-blue-800" />
               <h4 className="text-sm font-bold text-foreground">2. Relevant International Code Conformance</h4>
             </div>
             <Button
@@ -402,7 +402,7 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
           {nablAccredited && (
             <div className="space-y-4 pt-3 border-t border-border/50">
               <div className="flex items-center justify-between">
-                <h5 className="text-xs font-bold text-teal-700">NABL Laboratory Testing Records</h5>
+                <h5 className="text-xs font-bold text-blue-800">NABL Laboratory Testing Records</h5>
                 <Button
                   type="button"
                   variant="outline"
@@ -464,7 +464,7 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
           {internationalLabTested && (
             <div className="space-y-4 pt-3 border-t border-border/50">
               <div className="flex items-center justify-between">
-                <h5 className="text-xs font-bold text-teal-700">International Lab Testing Records</h5>
+                <h5 className="text-xs font-bold text-blue-800">International Lab Testing Records</h5>
                 <Button
                   type="button"
                   variant="outline"
@@ -529,7 +529,7 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
           {isoCertified && (
             <div className="space-y-4 pt-3 border-t border-border/50">
               <div className="flex items-center justify-between">
-                <h5 className="text-xs font-bold text-teal-700">ISO Certification Records</h5>
+                <h5 className="text-xs font-bold text-blue-800">ISO Certification Records</h5>
                 <Button
                   type="button"
                   variant="outline"
@@ -573,7 +573,7 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
       {/* Section C: Additional Information */}
       <section className="space-y-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-teal-400 text-sm font-bold text-white shadow-md shadow-teal-400/20">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-700 text-sm font-bold text-white shadow-md shadow-blue-700/20">
             C
           </div>
           <div>
@@ -607,7 +607,7 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
           {greenCertified && (
             <div className="space-y-4 pt-3 border-t border-border/50">
               <div className="flex items-center justify-between">
-                <h5 className="text-xs font-bold text-teal-700">Green Certification Records</h5>
+                <h5 className="text-xs font-bold text-blue-800">Green Certification Records</h5>
                 <Button
                   type="button"
                   variant="outline"
@@ -670,7 +670,7 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
           {govRegistered && (
             <div className="space-y-4 pt-3 border-t border-border/50">
               <div className="flex items-center justify-between">
-                <h5 className="text-xs font-bold text-teal-700">Govt / PSU Approvals</h5>
+                <h5 className="text-xs font-bold text-blue-800">Govt / PSU Approvals</h5>
                 <Button
                   type="button"
                   variant="outline"
@@ -712,7 +712,7 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
         <div className="space-y-5 rounded-xl border border-border/50 bg-card p-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <FileText className="h-5 w-5 text-teal-600" />
+              <FileText className="h-5 w-5 text-blue-800" />
               <div>
                 <h4 className="text-sm font-bold text-foreground">3. Past Projects Experience</h4>
                 <p className="text-xs text-muted-foreground">Supply details for Government, PSU, or Private projects (max 5, last 5 years)</p>
@@ -936,7 +936,7 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
           {suppliedToDmrc && (
             <div className="space-y-4 pt-3 border-t border-border/50">
               <div className="flex items-center justify-between">
-                <h5 className="text-xs font-bold text-teal-700">DMRC Supply Records (max 5)</h5>
+                <h5 className="text-xs font-bold text-blue-800">DMRC Supply Records (max 5)</h5>
                 {dmrcProjects.length < 5 && (
                   <Button
                     type="button"
@@ -962,9 +962,9 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
 
               <div className="space-y-4">
                 {dmrcProjects.map((field, index) => (
-                  <div key={field.id} className="relative rounded-lg border border-teal-100 bg-teal-50/10 p-4 transition-all hover:bg-teal-50/20">
+                  <div key={field.id} className="relative rounded-lg border border-blue-100 bg-blue-50/10 p-4 transition-all hover:bg-blue-50/20">
                     <div className="mb-3 flex items-center justify-between">
-                      <span className="text-xs font-bold text-teal-700/80 uppercase tracking-wider">DMRC Entry #{index + 1}</span>
+                      <span className="text-xs font-bold text-blue-800/80 uppercase tracking-wider">DMRC Entry #{index + 1}</span>
                       <Button type="button" variant="ghost" size="sm" onClick={() => removeDmrcProject(index)} className="h-8 w-8 p-0 text-destructive hover:text-destructive hover:bg-destructive/10">
                         <Trash2 className="h-4 w-4" />
                       </Button>
@@ -1039,7 +1039,7 @@ export function ArchitectureFields({ form, applicationId }: ArchitectureFieldsPr
                     </div>
 
                     {/* DMRC Project Inline Uploads */}
-                    <div className="grid gap-4 sm:grid-cols-2 mt-4 pt-4 border-t border-dashed border-teal-100">
+                    <div className="grid gap-4 sm:grid-cols-2 mt-4 pt-4 border-t border-dashed border-blue-100">
                       <FormItem className="space-y-1.5">
                         <FormLabel className="text-xs font-semibold text-foreground">Work Order / LOA PDF <span className="text-destructive">*</span></FormLabel>
                         <div className="flex items-center gap-2">

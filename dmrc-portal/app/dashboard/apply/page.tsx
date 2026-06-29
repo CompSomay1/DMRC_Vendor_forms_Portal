@@ -468,7 +468,7 @@ function ApplyFormContent() {
 
       {/* Form Content */}
       <Card className="border-border/50 shadow-lg">
-        <div className="h-1 bg-gradient-to-r from-dmrc-blue via-dmrc-blue-light to-dmrc-gold" />
+        <div className="h-1 bg-dmrc-blue" />
         <CardContent className="p-6 sm:p-8">
           <Form {...form}>
             <form onSubmit={(e) => e.preventDefault()}>
@@ -658,7 +658,7 @@ function ApplyFormContent() {
             information, and answers given are true and no information has been
             suppressed.
           </div>
-          <DialogFooter className="gap-2 sm:gap-0">
+          <DialogFooter className="gap-4 sm:gap-4">
             <Button
               variant="outline"
               onClick={() => setShowConfirmDialog(false)}

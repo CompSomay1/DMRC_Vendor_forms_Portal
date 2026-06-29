@@ -167,7 +167,7 @@ export default function DashboardPage() {
               </select>
             </div>
           </div>
-          <DialogFooter className="gap-2 sm:gap-0">
+          <DialogFooter className="gap-4 sm:gap-4">
             <Button
               variant="outline"
               onClick={() => setIsCreateOpen(false)}

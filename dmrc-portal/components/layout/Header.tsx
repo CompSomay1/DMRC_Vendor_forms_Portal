@@ -85,18 +85,25 @@ export function Header() {
 
   // Standard DMRC Header for Dashboard
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-white/80 backdrop-blur-xl supports-backdrop-filter:bg-white/60">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 w-full shadow-md" style={{ backgroundColor: "#1d4ed8" }}>
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo & Brand */}
         <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-dmrc-blue shadow-md">
-            <Train className="h-6 w-6 text-white" />
+          <div className="flex items-center justify-center shrink-0 overflow-hidden rounded-md bg-white p-1" style={{ height: "56px" }}>
+            <Image
+              src="/logo-final.png"
+              alt="DMRC Logo"
+              width={140}
+              height={56}
+              className="h-full w-auto object-contain"
+              priority
+            />
           </div>
           <div className="flex flex-col">
-            <span className="text-lg font-bold tracking-tight text-dmrc-blue">
+            <span className="text-lg font-bold tracking-tight text-white">
               DMRC
             </span>
-            <span className="text-[10px] font-medium uppercase tracking-widest text-muted-foreground">
+            <span className="text-[10px] font-medium uppercase tracking-widest text-white/80">
               Vendor Registration Portal
             </span>
           </div>
@@ -106,19 +113,19 @@ export function Header() {
         <nav className="flex items-center gap-1">
           <Link href="/dashboard">
             <Button
-              variant={pathname === "/dashboard" ? "secondary" : "ghost"}
+              variant="ghost"
               size="sm"
-              className="gap-2"
+              className={`gap-2 text-white hover:bg-white/20 hover:text-white ${pathname === "/dashboard" ? "bg-white/20" : ""}`}
             >
               <LayoutDashboard className="h-4 w-4" />
               <span className="hidden sm:inline">Dashboard</span>
             </Button>
           </Link>
-          <div className="mx-2 h-6 w-px bg-border" />
+          <div className="mx-2 h-6 w-px bg-white/20" />
           <Button
             variant="ghost"
             size="sm"
-            className="gap-2 text-destructive hover:text-destructive"
+            className="gap-2 text-red-400 font-medium hover:text-white hover:bg-red-500/50"
             onClick={() => signOut({ callbackUrl: "/login" })}
           >
             <LogOut className="h-4 w-4" />

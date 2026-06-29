@@ -120,7 +120,7 @@ export function FormReview({ category, formValues }: FormReviewProps) {
               <span className="text-xs font-semibold text-muted-foreground">IS Codes Conformance</span>
               <div className="flex flex-wrap gap-2 mt-1.5">
                 {categoryFields.isCodes.map((c: any, idx: number) => (
-                  <span key={idx} className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-teal-50 text-teal-700 border border-teal-100 dark:bg-teal-950/20 dark:text-teal-400 dark:border-teal-900/50">
+                  <span key={idx} className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-900/50">
                     {c.code} (Valid: {c.validTill})
                   </span>
                 ))}
@@ -133,7 +133,7 @@ export function FormReview({ category, formValues }: FormReviewProps) {
               <span className="text-xs font-semibold text-muted-foreground">International Codes Conformance</span>
               <div className="flex flex-wrap gap-2 mt-1.5">
                 {categoryFields.internationalCodes.map((c: any, idx: number) => (
-                  <span key={idx} className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-teal-50 text-teal-700 border border-teal-100 dark:bg-teal-950/20 dark:text-teal-400 dark:border-teal-900/50">
+                  <span key={idx} className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-900/50">
                     {c.code} (Valid: {c.validTill})
                   </span>
                 ))}
@@ -421,7 +421,7 @@ export function FormReview({ category, formValues }: FormReviewProps) {
               {categoryFields.financialData.map(
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 (fd: any, i: number) => (
-                  <span key={i} className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-amber-50 text-amber-700 border border-amber-100 dark:bg-amber-950/20 dark:text-amber-400 dark:border-amber-900/50">
+                  <span key={i} className="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-blue-50 text-blue-800 border border-blue-100 dark:bg-blue-950/20 dark:text-blue-400 dark:border-blue-900/50">
                     {fd.financialYear || "—"}
                   </span>
                 )

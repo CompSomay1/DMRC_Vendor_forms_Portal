@@ -92,7 +92,7 @@ function InlineFileUpload({
             >
               View PDF
             </a>
-            <label className="cursor-pointer text-xs font-bold text-violet-600 hover:text-violet-500 transition-colors shrink-0">
+            <label className="cursor-pointer text-xs font-bold text-blue-800 hover:text-blue-700 transition-colors shrink-0">
               Replace
               <input
                 type="file"
@@ -104,10 +104,10 @@ function InlineFileUpload({
             </label>
           </div>
         ) : (
-          <label className="flex items-center justify-center gap-2 w-full h-10 border border-dashed border-border/80 hover:border-violet-600 hover:bg-background rounded-md cursor-pointer text-xs font-medium text-muted-foreground transition-all">
+          <label className="flex items-center justify-center gap-2 w-full h-10 border border-dashed border-border/80 hover:border-blue-800 hover:bg-background rounded-md cursor-pointer text-xs font-medium text-muted-foreground transition-all">
             {isUploading ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin text-violet-600" />
+                <Loader2 className="h-4 w-4 animate-spin text-blue-800" />
                 Uploading...
               </>
             ) : (
@@ -140,7 +140,7 @@ function InlineFileUpload({
 }
 
 // ─── Section Header Component ───
-function SectionHeader({ letter, title, subtitle, icon: Icon, color = "bg-violet-600" }: {
+function SectionHeader({ letter, title, subtitle, icon: Icon, color = "bg-blue-800" }: {
   letter: string;
   title: string;
   subtitle?: string;
@@ -153,7 +153,7 @@ function SectionHeader({ letter, title, subtitle, icon: Icon, color = "bg-violet
         {letter}
       </div>
       <div className="flex items-center gap-2">
-        <Icon className="h-5 w-5 text-violet-600" />
+        <Icon className="h-5 w-5 text-blue-800" />
         <div>
           <h3 className="text-lg font-bold text-foreground">{title}</h3>
           {subtitle && <p className="text-xs text-muted-foreground">{subtitle}</p>}
@@ -173,7 +173,7 @@ function SubCard({ title, onDelete, index, children }: {
   return (
     <div className="relative rounded-xl border border-border bg-card/40 p-5 shadow-sm transition-all hover:shadow-md">
       <div className="mb-4 flex items-center justify-between border-b border-border/60 pb-2">
-        <span className="text-xs font-bold uppercase tracking-wider text-violet-600">
+        <span className="text-xs font-bold uppercase tracking-wider text-blue-800">
           {title} #{index + 1}
         </span>
         {onDelete && (
@@ -473,7 +473,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                 actualProductionUnit: "per_month",
                 actualProductionDocUrl: "",
               })}
-              className="gap-1.5 border-violet-200 text-violet-600 hover:bg-violet-50 hover:text-violet-700"
+              className="gap-1.5 border-blue-200 text-blue-800 hover:bg-blue-50 hover:text-blue-900"
             >
               <Plus className="h-4 w-4" /> Add Factory
             </Button>
@@ -741,7 +741,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
         {/* ORGANISATION DOCUMENTS */}
         <div className="rounded-xl border bg-muted/5 p-5 space-y-4">
           <h4 className="text-sm font-bold text-foreground flex items-center gap-1.5 border-b pb-2">
-            <Info className="h-4 w-4 text-violet-600" />
+            <Info className="h-4 w-4 text-blue-800" />
             Organisation details of the manufacturing company
           </h4>
 
@@ -797,7 +797,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                 directorsDetails: "",
                 directorsDocUrl: "",
               })}
-              className="gap-1.5 border-violet-200 text-violet-600 hover:bg-violet-50"
+              className="gap-1.5 border-blue-200 text-blue-800 hover:bg-blue-50"
             >
               <Plus className="h-4 w-4" /> Add Parent Details
             </Button>
@@ -898,7 +898,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
               variant="outline"
               size="sm"
               onClick={() => appendShareholding({ details: "", documentUrl: "" })}
-              className="gap-1.5 border-violet-200 text-violet-600 hover:bg-violet-50"
+              className="gap-1.5 border-blue-200 text-blue-800 hover:bg-blue-50"
             >
               <Plus className="h-4 w-4" /> Add Directors Row
             </Button>
@@ -936,7 +936,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
         {/* IN-HOUSE FACILITIES */}
         <div className="space-y-5 pt-4">
           <h4 className="text-md font-bold text-foreground border-b pb-2 flex items-center gap-1.5">
-            <Shield className="h-4 w-4 text-violet-600" />
+            <Shield className="h-4 w-4 text-blue-800" />
             In-House Facilities
           </h4>
 
@@ -953,7 +953,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
               )}
             />
             {hasInHouseDesign && (
-              <div className="grid gap-5 sm:grid-cols-2 pl-6 border-l-2 border-violet-300">
+              <div className="grid gap-5 sm:grid-cols-2 pl-6 border-l-2 border-blue-200">
                 <FormField
                   control={form.control}
                   name="categoryFields.inHouseDesignDetails"
@@ -989,7 +989,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
               )}
             />
             {hasInHouseTesting && (
-              <div className="grid gap-5 sm:grid-cols-2 pl-6 border-l-2 border-violet-300">
+              <div className="grid gap-5 sm:grid-cols-2 pl-6 border-l-2 border-blue-200">
                 <FormField
                   control={form.control}
                   name="categoryFields.inHouseTestingDetails"
@@ -1025,7 +1025,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
               )}
             />
             {hasInHouseRnd && (
-              <div className="grid gap-5 sm:grid-cols-2 pl-6 border-l-2 border-violet-300">
+              <div className="grid gap-5 sm:grid-cols-2 pl-6 border-l-2 border-blue-200">
                 <FormField
                   control={form.control}
                   name="categoryFields.inHouseRndDetails"
@@ -1265,7 +1265,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                   workOrderUrl: "",
                   completionCertUrl: "",
                 })}
-                className="gap-1.5 border-violet-200 text-violet-600 hover:bg-violet-50"
+                className="gap-1.5 border-blue-200 text-blue-800 hover:bg-blue-50"
               >
                 <Plus className="h-4 w-4" /> Add DMRC Project
               </Button>
@@ -1405,7 +1405,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                   workOrderUrl: "",
                   completionCertUrl: "",
                 })}
-                className="gap-1.5 border-violet-200 text-violet-600 hover:bg-violet-50"
+                className="gap-1.5 border-blue-200 text-blue-800 hover:bg-blue-50"
               >
                 <Plus className="h-4 w-4" /> Add Other Project
               </Button>
@@ -1555,7 +1555,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                 variant="outline"
                 size="sm"
                 onClick={() => appendBlacklist({ blacklistedBy: "", reason: "", date: "", documentUrl: "" })}
-                className="gap-1.5 border-violet-200 text-violet-600 hover:bg-violet-50"
+                className="gap-1.5 border-blue-200 text-blue-800 hover:bg-blue-50"
               >
                 <Plus className="h-4 w-4" /> Add Blacklist Row
               </Button>
@@ -1629,7 +1629,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                 variant="outline"
                 size="sm"
                 onClick={() => appendLitigation({ agencyName: "", reason: "", date: "", documentUrl: "" })}
-                className="gap-1.5 border-violet-200 text-violet-600 hover:bg-violet-50"
+                className="gap-1.5 border-blue-200 text-blue-800 hover:bg-blue-50"
               >
                 <Plus className="h-4 w-4" /> Add Litigation Row
               </Button>
@@ -1795,7 +1795,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
               variant="outline"
               size="sm"
               onClick={() => appendQualityCert({ certName: "", validTill: "", certificateUrl: "" })}
-              className="gap-1.5 border-violet-200 text-violet-600 hover:bg-violet-50"
+              className="gap-1.5 border-blue-200 text-blue-800 hover:bg-blue-50"
             >
               <Plus className="h-4 w-4" /> Add Certification
             </Button>
@@ -1850,7 +1850,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
               variant="outline"
               size="sm"
               onClick={() => appendCode({ codeName: "", documentUrl: "" })}
-              className="gap-1.5 border-violet-200 text-violet-600 hover:bg-violet-50"
+              className="gap-1.5 border-blue-200 text-blue-800 hover:bg-blue-50"
             >
               <Plus className="h-4 w-4" /> Add Code
             </Button>
@@ -1885,7 +1885,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
         {/* IN-HOUSE TESTING SETUP DETAILS */}
         <div className="space-y-5 pt-4 border-t">
           <h4 className="text-md font-bold text-foreground flex items-center gap-1.5 border-b pb-2">
-            <HelpCircle className="h-4 w-4 text-violet-600" />
+            <HelpCircle className="h-4 w-4 text-blue-800" />
             Details of In-House Testing facilities
           </h4>
 
@@ -1908,7 +1908,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                   variant="outline"
                   size="sm"
                   onClick={() => appendTestStd({ details: "", docUrl: "" })}
-                  className="gap-1.5 text-xs text-violet-600 border-violet-200"
+                  className="gap-1.5 text-xs text-blue-800 border-blue-200"
                 >
                   <Plus className="h-3 w-3" /> Add Standard Entry
                 </Button>
@@ -1959,7 +1959,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                   variant="outline"
                   size="sm"
                   onClick={() => appendTestProduct({ details: "", docUrl: "" })}
-                  className="gap-1.5 text-xs text-violet-600 border-violet-200"
+                  className="gap-1.5 text-xs text-blue-800 border-blue-200"
                 >
                   <Plus className="h-3 w-3" /> Add Product Std Entry
                 </Button>
@@ -2010,7 +2010,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                   variant="outline"
                   size="sm"
                   onClick={() => appendTestAccredited({ details: "", docUrl: "" })}
-                  className="gap-1.5 text-xs text-violet-600 border-violet-200"
+                  className="gap-1.5 text-xs text-blue-800 border-blue-200"
                 >
                   <Plus className="h-3 w-3" /> Add Accred Entry
                 </Button>
@@ -2061,7 +2061,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                   variant="outline"
                   size="sm"
                   onClick={() => appendTestAll({ details: "", docUrl: "" })}
-                  className="gap-1.5 text-xs text-violet-600 border-violet-200"
+                  className="gap-1.5 text-xs text-blue-800 border-blue-200"
                 >
                   <Plus className="h-3 w-3" /> Add Test Entry
                 </Button>
@@ -2112,7 +2112,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                   variant="outline"
                   size="sm"
                   onClick={() => appendTestExt({ details: "", docUrl: "" })}
-                  className="gap-1.5 text-xs text-violet-600 border-violet-200"
+                  className="gap-1.5 text-xs text-blue-800 border-blue-200"
                 >
                   <Plus className="h-3 w-3" /> Add External Entry
                 </Button>
@@ -2220,7 +2220,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                     render={({ field: f }) => (
                       <FormItem>
                         <FormLabel className="text-xs font-semibold">Select Financial Year <span className="text-destructive">*</span></FormLabel>
-                        <Select onValueChange={f.onChange} defaultValue={f.value || defaultYear}>
+                        <Select onValueChange={f.onChange} defaultValue={f.value}>
                           <FormControl><SelectTrigger className="h-10"><SelectValue placeholder="Select Year" /></SelectTrigger></FormControl>
                           <SelectContent>
                             <SelectItem value={yearsList[0]}>{yearsList[0]}</SelectItem>
@@ -2466,7 +2466,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                 variant="outline"
                 size="sm"
                 onClick={() => appendTypeTest({ details: "", validTill: "", documentUrl: "" })}
-                className="gap-1.5 border-violet-200 text-violet-600 hover:bg-violet-50 text-xs"
+                className="gap-1.5 border-blue-200 text-blue-800 hover:bg-blue-50 text-xs"
               >
                 <Plus className="h-3.5 w-3.5" /> Add Type Test
               </Button>
@@ -2529,7 +2529,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                 variant="outline"
                 size="sm"
                 onClick={() => appendTypeTestLab({ laboratoryName: "", validTill: "", accreditationCertUrl: "" })}
-                className="gap-1.5 border-violet-200 text-violet-600 hover:bg-violet-50 text-xs"
+                className="gap-1.5 border-blue-200 text-blue-800 hover:bg-blue-50 text-xs"
               >
                 <Plus className="h-3.5 w-3.5" /> Add Laboratory
               </Button>
@@ -2585,10 +2585,10 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                 </FormLabel>
                 <div className="flex items-center gap-3">
                   <label className="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" checked={field.value === true} onChange={() => field.onChange(true)} className="accent-violet-600" /> Yes
+                    <input type="radio" checked={field.value === true} onChange={() => field.onChange(true)} className="accent-blue-800" /> Yes
                   </label>
                   <label className="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" checked={field.value === false} onChange={() => field.onChange(false)} className="accent-violet-600" /> No
+                    <input type="radio" checked={field.value === false} onChange={() => field.onChange(false)} className="accent-blue-800" /> No
                   </label>
                 </div>
                 <FormMessage />
@@ -2606,10 +2606,10 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                 </FormLabel>
                 <div className="flex items-center gap-3">
                   <label className="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" checked={field.value === true} onChange={() => field.onChange(true)} className="accent-violet-600" /> Yes
+                    <input type="radio" checked={field.value === true} onChange={() => field.onChange(true)} className="accent-blue-800" /> Yes
                   </label>
                   <label className="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" checked={field.value === false} onChange={() => field.onChange(false)} className="accent-violet-600" /> No
+                    <input type="radio" checked={field.value === false} onChange={() => field.onChange(false)} className="accent-blue-800" /> No
                   </label>
                 </div>
                 <FormMessage />
@@ -2627,10 +2627,10 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
                 </FormLabel>
                 <div className="flex items-center gap-3">
                   <label className="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" checked={field.value === true} onChange={() => field.onChange(true)} className="accent-violet-600" /> Yes
+                    <input type="radio" checked={field.value === true} onChange={() => field.onChange(true)} className="accent-blue-800" /> Yes
                   </label>
                   <label className="flex items-center gap-1 cursor-pointer">
-                    <input type="radio" checked={field.value === false} onChange={() => field.onChange(false)} className="accent-violet-600" /> No
+                    <input type="radio" checked={field.value === false} onChange={() => field.onChange(false)} className="accent-blue-800" /> No
                   </label>
                 </div>
                 <FormMessage />
@@ -2660,7 +2660,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
               variant="outline"
               size="sm"
               onClick={() => appendAfterSalesDelhi({ details: "", documentUrl: "" })}
-              className="gap-1.5 border-violet-200 text-violet-600 hover:bg-violet-50"
+              className="gap-1.5 border-blue-200 text-blue-800 hover:bg-blue-50"
             >
               <Plus className="h-4 w-4" /> Add support Center
             </Button>
@@ -2704,7 +2704,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
               variant="outline"
               size="sm"
               onClick={() => appendAfterSalesOutside({ details: "", documentUrl: "" })}
-              className="gap-1.5 border-violet-200 text-violet-600 hover:bg-violet-50"
+              className="gap-1.5 border-blue-200 text-blue-800 hover:bg-blue-50"
             >
               <Plus className="h-4 w-4" /> Add support Center
             </Button>
@@ -2824,7 +2824,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
             />
 
             {undertaking_d && (
-              <div className="grid gap-5 sm:grid-cols-2 pt-3 pl-6 border-l-2 border-violet-400">
+              <div className="grid gap-5 sm:grid-cols-2 pt-3 pl-6 border-l-2 border-blue-300">
                 <InlineFileUpload
                   label="Upload signed Annexure-2A (PDF) *"
                   fieldName="categoryFields.undertaking_d_annexure2AUrl"
@@ -2901,7 +2901,7 @@ export function ElectricalFields({ form, applicationId }: ElectricalFieldsProps)
             />
 
             {undertaking_g === "Yes" && (
-              <div className="pt-3 pl-6 border-l-2 border-violet-400">
+              <div className="pt-3 pl-6 border-l-2 border-blue-300">
                 <InlineFileUpload
                   label="Upload Report of EMI / EMC Study (PDF) *"
                   fieldName="categoryFields.undertaking_g_emiEmcStudyUrl"

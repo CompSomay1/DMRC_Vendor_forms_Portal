@@ -12,7 +12,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
-import { Building2, Calendar, Tag, ChevronRight, Edit, Paperclip, Trash2, Loader2 } from "lucide-react";
+import { Building2, Calendar, Tag, ChevronRight, Edit, Paperclip, Trash2, Loader2, FileText } from "lucide-react";
 import { VendorApplication, Category } from "@/types/application";
 import { toast } from "@/components/ui/sonner";
 import {
@@ -36,9 +36,9 @@ const categoryLabels: Record<Category, string> = {
 };
 
 const categoryColors: Record<Category, string> = {
-  [Category.CIVIL]: "bg-blue-50 text-blue-700 border-blue-200",
-  [Category.ELECTRICAL]: "bg-purple-50 text-purple-700 border-purple-200",
-  [Category.ARCHITECTURE]: "bg-teal-50 text-teal-700 border-teal-200",
+  [Category.CIVIL]: "bg-blue-50 text-blue-800 border-blue-200",
+  [Category.ELECTRICAL]: "bg-blue-50 text-blue-800 border-blue-200",
+  [Category.ARCHITECTURE]: "bg-blue-50 text-blue-800 border-blue-200",
 };
 
 export function ApplicationCard({ application, onDelete }: ApplicationCardProps) {
@@ -47,7 +47,7 @@ export function ApplicationCard({ application, onDelete }: ApplicationCardProps)
 
   const formData = application.formData as Record<string, unknown> | null;
   const isDraft = application.status === "DRAFT";
-  
+
   const dateLabel = isDraft ? "Created on" : "Submitted on";
   const dateValue = application.submittedAt ?? application.createdAt;
 
@@ -77,7 +77,7 @@ export function ApplicationCard({ application, onDelete }: ApplicationCardProps)
   return (
     <Card className="overflow-hidden border-border/50 shadow-lg transition-all duration-300 hover:shadow-xl">
       {/* Top accent bar */}
-      <div className="h-1.5 bg-gradient-to-r from-dmrc-blue via-dmrc-blue-light to-dmrc-gold" />
+      <div className="h-1.5 bg-dmrc-blue" />
 
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between gap-4">
@@ -178,8 +178,8 @@ export function ApplicationCard({ application, onDelete }: ApplicationCardProps)
           </div>
         )}
 
-        {/* Draft Edit Action */}
-        {isDraft && (
+        {/* Action Buttons */}
+        {isDraft ? (
           <div className="mt-5 flex items-center justify-between">
             <Button
               size="sm"
@@ -197,6 +197,19 @@ export function ApplicationCard({ application, onDelete }: ApplicationCardProps)
               >
                 <Edit className="h-3.5 w-3.5" />
                 Resume Application
+              </Button>
+            </Link>
+          </div>
+        ) : (
+          <div className="mt-5 flex items-center justify-end">
+            <Link href={`/dashboard/view/${application.id}`}>
+              <Button
+                size="sm"
+                variant="outline"
+                className="gap-1.5 border-dmrc-blue/30 text-dmrc-blue hover:bg-dmrc-blue/5 hover:text-dmrc-blue-light font-semibold transition-colors"
+              >
+                <FileText className="h-3.5 w-3.5" />
+                View Application
               </Button>
             </Link>
           </div>
@@ -218,7 +231,7 @@ export function ApplicationCard({ application, onDelete }: ApplicationCardProps)
                 ? This action cannot be undone and will permanently remove all entered data and uploaded files.
               </DialogDescription>
             </DialogHeader>
-            <DialogFooter className="gap-2 sm:gap-0 mt-4">
+            <DialogFooter className="gap-4 sm:gap-4 mt-4">
               <Button
                 variant="outline"
                 onClick={() => setShowDeleteDialog(false)}
