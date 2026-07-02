@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Register as a new vendor on the DMRC portal.",
 };
 
-const bgUrl = "/site_backgroundpic2.jpg";
+const bgUrl = "/dmrc-train-bg2.jpg";
 
 export default function RegisterPage() {
   return (

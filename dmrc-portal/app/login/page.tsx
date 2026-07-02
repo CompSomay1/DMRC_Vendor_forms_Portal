@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: "Sign in to your DMRC vendor account using your PAN Card number.",
 };
 
-const bgUrl = "/site_backgroundpic2.jpg";
+const bgUrl = "/dmrc-train-bg2.jpg";
 
 export default function LoginPage() {
   return (
