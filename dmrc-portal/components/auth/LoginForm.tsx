@@ -74,17 +74,17 @@ export function LoginForm() {
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
         {/* PAN Number */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-gray-700" style={{ fontSize: "0.875rem", fontWeight: 500 }}>
+          <label className="text-gray-700 dark:text-zinc-300" style={{ fontSize: "0.875rem", fontWeight: 500 }}>
             PAN Number
           </label>
           <input
             type="text"
             placeholder="e.g. ABCDE1234F"
             maxLength={10}
-            className={`w-full rounded-lg border bg-gray-50 px-4 py-3 text-gray-800 placeholder-gray-400 outline-none transition uppercase tracking-wider focus:bg-white focus:ring-2 ${
+            className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-3 text-gray-800 dark:text-zinc-100 placeholder-gray-400 outline-none transition uppercase tracking-wider focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
               errors.panCard
                 ? "border-red-400 focus:border-red-400 focus:ring-red-100"
-                : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
+                : "border-gray-200 dark:border-zinc-800 focus:border-blue-500 focus:ring-blue-100"
             }`}
             style={{ fontSize: "0.9rem" }}
             {...register("panCard", {
@@ -104,12 +104,12 @@ export function LoginForm() {
         {/* Password */}
         <div className="flex flex-col gap-1.5">
           <div className="flex items-center justify-between">
-            <label className="text-gray-700" style={{ fontSize: "0.875rem", fontWeight: 500 }}>
+            <label className="text-gray-700 dark:text-zinc-300" style={{ fontSize: "0.875rem", fontWeight: 500 }}>
               Enter Password
             </label>
             <button
               type="button"
-              className="text-blue-600 hover:text-blue-700 transition"
+              className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition"
               style={{ fontSize: "0.8rem" }}
             >
               Forgot Password?
@@ -119,10 +119,10 @@ export function LoginForm() {
             <input
               type={showPassword ? "text" : "password"}
               placeholder="Enter your password"
-              className={`w-full rounded-lg border bg-gray-50 px-4 py-3 pr-11 text-gray-800 placeholder-gray-400 outline-none transition focus:bg-white focus:ring-2 ${
+              className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-3 pr-11 text-gray-800 dark:text-zinc-100 placeholder-gray-400 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                 errors.password
                   ? "border-red-400 focus:border-red-400 focus:ring-red-100"
-                  : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
+                  : "border-gray-200 dark:border-zinc-800 focus:border-blue-500 focus:ring-blue-100"
               }`}
               style={{ fontSize: "0.9rem" }}
               {...register("password")}
@@ -131,7 +131,7 @@ export function LoginForm() {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-zinc-350 transition"
               tabIndex={-1}
             >
               <EyeIcon open={showPassword} />

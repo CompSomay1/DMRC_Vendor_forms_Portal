@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Toaster } from "@/components/ui/sonner";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -22,17 +23,24 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full antialiased font-sans" suppressHydrationWarning>
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <Header />
-        {children}
-        <Footer />
-        <Toaster
-          position="top-right"
-          richColors
-          closeButton
-          toastOptions={{
-            duration: 4000,
-          }}
-        />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Header />
+          {children}
+          <Footer />
+          <Toaster
+            position="top-right"
+            richColors
+            closeButton
+            toastOptions={{
+              duration: 4000,
+            }}
+          />
+        </ThemeProvider>
       </body>
     </html>
   );

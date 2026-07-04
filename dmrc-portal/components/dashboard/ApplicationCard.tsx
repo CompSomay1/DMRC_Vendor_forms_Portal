@@ -36,9 +36,9 @@ const categoryLabels: Record<Category, string> = {
 };
 
 const categoryColors: Record<Category, string> = {
-  [Category.CIVIL]: "bg-blue-50 text-blue-800 border-blue-200",
-  [Category.ELECTRICAL]: "bg-blue-50 text-blue-800 border-blue-200",
-  [Category.ARCHITECTURE]: "bg-blue-50 text-blue-800 border-blue-200",
+  [Category.CIVIL]: "bg-blue-50 dark:bg-blue-950/30 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-850",
+  [Category.ELECTRICAL]: "bg-blue-50 dark:bg-blue-950/30 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-850",
+  [Category.ARCHITECTURE]: "bg-blue-50 dark:bg-blue-950/30 text-blue-800 dark:text-blue-300 border-blue-200 dark:border-blue-850",
 };
 
 export function ApplicationCard({ application, onDelete }: ApplicationCardProps) {
@@ -105,8 +105,8 @@ export function ApplicationCard({ application, onDelete }: ApplicationCardProps)
         <div className="grid gap-4 sm:grid-cols-2">
           {/* Category */}
           <div className="flex items-center gap-3 rounded-lg border border-border/50 bg-muted/30 p-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-dmrc-blue/10">
-              <Tag className="h-4 w-4 text-dmrc-blue" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-dmrc-blue/10 dark:bg-blue-500/10">
+              <Tag className="h-4 w-4 text-dmrc-blue dark:text-blue-400" />
             </div>
             <div>
               <p className="text-xs font-medium text-muted-foreground">
@@ -120,8 +120,8 @@ export function ApplicationCard({ application, onDelete }: ApplicationCardProps)
 
           {/* Role */}
           <div className="flex items-center gap-3 rounded-lg border border-border/50 bg-muted/30 p-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-dmrc-gold/10">
-              <Building2 className="h-4 w-4 text-dmrc-gold-dark" />
+            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-dmrc-gold/10 dark:bg-amber-500/10">
+              <Building2 className="h-4 w-4 text-dmrc-gold-dark dark:text-amber-400" />
             </div>
             <div>
               <p className="text-xs font-medium text-muted-foreground">Role</p>
@@ -135,7 +135,7 @@ export function ApplicationCard({ application, onDelete }: ApplicationCardProps)
         {/* Attached Documents Indicator */}
         {application.documents && application.documents.length > 0 && (
           <div className="mt-3 flex items-center gap-1.5 text-xs font-medium text-muted-foreground bg-muted/20 border border-border/40 p-2 rounded-lg w-fit">
-            <Paperclip className="h-3.5 w-3.5 text-dmrc-blue" />
+            <Paperclip className="h-3.5 w-3.5 text-dmrc-blue dark:text-blue-400" />
             <span>{application.documents.length} document(s) uploaded</span>
           </div>
         )}
@@ -144,7 +144,7 @@ export function ApplicationCard({ application, onDelete }: ApplicationCardProps)
         {formData && Object.keys(formData).length > 0 && (
           <div className="mt-4 rounded-lg border border-border/50 bg-muted/20 p-4">
             <h4 className="mb-3 text-sm font-semibold text-foreground flex items-center gap-1.5">
-              <ChevronRight className="h-4 w-4 text-dmrc-blue" />
+              <ChevronRight className="h-4 w-4 text-dmrc-blue dark:text-blue-400" />
               Application Details
             </h4>
             <div className="grid gap-2 text-sm">
@@ -193,7 +193,7 @@ export function ApplicationCard({ application, onDelete }: ApplicationCardProps)
             <Link href={`/dashboard/apply?id=${application.id}`}>
               <Button
                 size="sm"
-                className="gap-1.5 bg-dmrc-blue hover:bg-dmrc-blue-light text-white font-semibold shadow-md shadow-dmrc-blue/20"
+                className="gap-1.5 bg-dmrc-blue dark:bg-blue-600 hover:bg-dmrc-blue-light dark:hover:bg-blue-500 text-white font-semibold shadow-md shadow-dmrc-blue/20 dark:shadow-blue-900/30"
               >
                 <Edit className="h-3.5 w-3.5" />
                 Resume Application
@@ -206,7 +206,7 @@ export function ApplicationCard({ application, onDelete }: ApplicationCardProps)
               <Button
                 size="sm"
                 variant="outline"
-                className="gap-1.5 border-dmrc-blue/30 text-dmrc-blue hover:bg-dmrc-blue/5 hover:text-dmrc-blue-light font-semibold transition-colors"
+                className="gap-1.5 border-dmrc-blue/30 dark:border-blue-500/30 text-dmrc-blue dark:text-blue-400 hover:bg-dmrc-blue/5 dark:hover:bg-blue-500/10 hover:text-dmrc-blue-light dark:hover:text-blue-300 font-semibold transition-colors"
               >
                 <FileText className="h-3.5 w-3.5" />
                 View Application

@@ -18,7 +18,7 @@ export function Footer() {
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
           {/* Brand */}
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Train className="h-4 w-4 text-dmrc-blue" />
+            <Train className="h-4 w-4 text-dmrc-blue dark:text-blue-400" />
             <span>
               Delhi Metro Rail Corporation Ltd.
             </span>

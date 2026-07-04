@@ -43,7 +43,7 @@ export default function LoginPage() {
         </div>
 
         {/* Card */}
-        <div className="bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl border border-white/40 p-8">
+        <div className="bg-white/80 dark:bg-zinc-900/80 backdrop-blur-md rounded-2xl shadow-2xl border border-white/40 dark:border-zinc-800/40 p-8">
           <LoginForm />
         </div>
       </div>
