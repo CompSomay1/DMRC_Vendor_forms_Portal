@@ -254,7 +254,7 @@ export function RegisterForm() {
               </div>
               <span
                 className={`text-[0.78rem] font-semibold tracking-wide transition duration-300 ${
-                  currentStep === step.number ? "text-blue-700" : "text-gray-400"
+                  currentStep === step.number ? "text-blue-700 dark:text-blue-400" : "text-gray-400 dark:text-zinc-500"
                 }`}
               >
                 {step.title}
@@ -276,19 +276,19 @@ export function RegisterForm() {
         {/* ================= STEP 1: COMPANY DETAILS ================= */}
         {currentStep === 1 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 transition duration-300 animate-fadeIn">
-            <div className="md:col-span-2 border-b border-gray-100 pb-2 mb-1">
-              <h2 className="text-sm font-bold text-gray-800 uppercase tracking-wide">Section A: Details of the Company</h2>
+            <div className="md:col-span-2 border-b border-gray-100 dark:border-zinc-800 pb-2 mb-1">
+              <h2 className="text-sm font-bold text-gray-800 dark:text-zinc-100 uppercase tracking-wide">Section A: Details of the Company</h2>
             </div>
 
             {/* A.1 Name of the Company */}
             <div className="flex flex-col gap-1.5 md:col-span-2">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 1. Name of the Company <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 placeholder="Enter company legal name"
-                className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                   errors.companyName ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                 }`}
                 {...register("companyName")}
@@ -298,11 +298,11 @@ export function RegisterForm() {
 
             {/* A.2 Business Structure */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 2. Business Structure <span className="text-red-500">*</span>
               </label>
               <select
-                className={`w-full rounded-lg border bg-gray-50 px-3.5 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-3.5 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                   errors.businessStructure ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                 }`}
                 {...register("businessStructure")}
@@ -320,13 +320,13 @@ export function RegisterForm() {
             {/* A.2.Other Conditional Input */}
             {businessStructure === "OTHER" && (
               <div className="flex flex-col gap-1.5 animate-slideDown">
-                <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+                <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                   Specify Other Structure <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
                   placeholder="Enter business structure structure"
-                  className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                  className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                     errors.businessStructureOther ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                   }`}
                   {...register("businessStructureOther")}
@@ -339,13 +339,13 @@ export function RegisterForm() {
 
             {/* A.3 Registered Address */}
             <div className="flex flex-col gap-1.5 md:col-span-2">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 3. Registered Address <span className="text-red-500">*</span>
               </label>
               <textarea
                 rows={2}
                 placeholder="Enter complete office registered address"
-                className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                   errors.registeredAddress ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                 }`}
                 {...register("registeredAddress")}
@@ -355,11 +355,11 @@ export function RegisterForm() {
 
             {/* City & State */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">City <span className="text-red-500">*</span></label>
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">City <span className="text-red-500">*</span></label>
               <input
                 type="text"
                 placeholder="City"
-                className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                   errors.city ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                 }`}
                 {...register("city")}
@@ -368,11 +368,11 @@ export function RegisterForm() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">State <span className="text-red-500">*</span></label>
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">State <span className="text-red-500">*</span></label>
               <input
                 type="text"
                 placeholder="State"
-                className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                   errors.state ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                 }`}
                 {...register("state")}
@@ -382,11 +382,11 @@ export function RegisterForm() {
 
             {/* Country & PIN */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">Country <span className="text-red-500">*</span></label>
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">Country <span className="text-red-500">*</span></label>
               <input
                 type="text"
                 placeholder="Country"
-                className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                   errors.country ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                 }`}
                 {...register("country")}
@@ -395,12 +395,12 @@ export function RegisterForm() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">PIN Code <span className="text-red-500">*</span></label>
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">PIN Code <span className="text-red-500">*</span></label>
               <input
                 type="text"
                 maxLength={6}
                 placeholder="6-digit PIN code"
-                className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                   errors.pinCode ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                 }`}
                 {...register("pinCode")}
@@ -409,15 +409,15 @@ export function RegisterForm() {
             </div>
 
             {/* A.4 GST Number & Doc */}
-            <div className="flex flex-col gap-1.5 border border-gray-100 p-4 rounded-xl bg-gray-50/50">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+            <div className="flex flex-col gap-1.5 border border-gray-100 dark:border-zinc-800/80 p-4 rounded-xl bg-gray-50/50 dark:bg-zinc-900/10">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 4. GST Number <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 placeholder="Enter 15-character GSTIN"
                 maxLength={15}
-                className={`w-full rounded-lg border bg-white px-4 py-2.5 text-gray-800 placeholder-gray-400 uppercase outline-none transition focus:ring-2 ${
+                className={`w-full rounded-lg border bg-white dark:bg-zinc-900 px-4 py-2.5 text-gray-800 dark:text-zinc-100 placeholder-gray-400 uppercase outline-none transition focus:ring-2 ${
                   errors.gstNumber ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                 }`}
                 {...register("gstNumber", {
@@ -429,8 +429,8 @@ export function RegisterForm() {
               <div className="mt-3 flex items-center justify-between border-t border-dashed border-gray-200 pt-3">
                 <span className="text-xs font-semibold text-gray-500">GST Registration PDF</span>
                 {gstDocUrl ? (
-                  <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1">
-                    <span className="text-[0.78rem] font-medium text-emerald-700 truncate max-w-[120px]">
+                  <div className="flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/80 rounded-lg px-2.5 py-1">
+                    <span className="text-[0.78rem] font-medium text-emerald-700 dark:text-emerald-300 truncate max-w-[120px]">
                       {uploadedFiles.gstDocUrl || "Uploaded GST"}
                     </span>
                     <button type="button" onClick={() => removeUploadedFile("gstDocUrl")} className="text-red-500 hover:text-red-700">
@@ -438,7 +438,7 @@ export function RegisterForm() {
                     </button>
                   </div>
                 ) : (
-                  <label className="flex items-center gap-1.5 bg-blue-50 border border-blue-200 rounded-lg px-3 py-1.5 cursor-pointer hover:bg-blue-100 text-blue-700 text-xs font-bold transition">
+                  <label className="flex items-center gap-1.5 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg px-3 py-1.5 cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs font-bold transition">
                     <Upload className="h-3.5 w-3.5" />
                     {uploadingField === "gstDocUrl" ? "Uploading..." : "Upload File"}
                     <input type="file" accept=".pdf" className="hidden" onChange={(e) => handleDocUpload(e, "gstDocUrl")} disabled={uploadingField !== null} />
@@ -449,15 +449,15 @@ export function RegisterForm() {
             </div>
 
             {/* A.5 PAN Number & Doc */}
-            <div className="flex flex-col gap-1.5 border border-gray-100 p-4 rounded-xl bg-gray-50/50">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+            <div className="flex flex-col gap-1.5 border border-gray-100 dark:border-zinc-800/80 p-4 rounded-xl bg-gray-50/50 dark:bg-zinc-900/10">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 5. PAN Card Number <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 placeholder="e.g. ABCDE1234F"
                 maxLength={10}
-                className={`w-full rounded-lg border bg-white px-4 py-2.5 text-gray-800 placeholder-gray-400 uppercase outline-none transition focus:ring-2 ${
+                className={`w-full rounded-lg border bg-white dark:bg-zinc-900 px-4 py-2.5 text-gray-800 dark:text-zinc-100 placeholder-gray-400 uppercase outline-none transition focus:ring-2 ${
                   errors.panCard ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                 }`}
                 {...register("panCard", {
@@ -469,8 +469,8 @@ export function RegisterForm() {
               <div className="mt-3 flex items-center justify-between border-t border-dashed border-gray-200 pt-3">
                 <span className="text-xs font-semibold text-gray-500">PAN Card PDF</span>
                 {panDocUrl ? (
-                  <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1">
-                    <span className="text-[0.78rem] font-medium text-emerald-700 truncate max-w-[120px]">
+                  <div className="flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/80 rounded-lg px-2.5 py-1">
+                    <span className="text-[0.78rem] font-medium text-emerald-700 dark:text-emerald-300 truncate max-w-[120px]">
                       {uploadedFiles.panDocUrl || "Uploaded PAN"}
                     </span>
                     <button type="button" onClick={() => removeUploadedFile("panDocUrl")} className="text-red-500 hover:text-red-700">
@@ -478,7 +478,7 @@ export function RegisterForm() {
                     </button>
                   </div>
                 ) : (
-                  <label className="flex items-center gap-1.5 bg-blue-50 border border-blue-200 rounded-lg px-3 py-1.5 cursor-pointer hover:bg-blue-100 text-blue-700 text-xs font-bold transition">
+                  <label className="flex items-center gap-1.5 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg px-3 py-1.5 cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs font-bold transition">
                     <Upload className="h-3.5 w-3.5" />
                     {uploadingField === "panDocUrl" ? "Uploading..." : "Upload File"}
                     <input type="file" accept=".pdf" className="hidden" onChange={(e) => handleDocUpload(e, "panDocUrl")} disabled={uploadingField !== null} />
@@ -489,16 +489,16 @@ export function RegisterForm() {
             </div>
 
             {/* A.6 CIN (Optional) */}
-            <div className="flex flex-col gap-1.5 border border-gray-100 p-4 rounded-xl bg-gray-50/50 md:col-span-2">
+            <div className="flex flex-col gap-1.5 border border-gray-100 dark:border-zinc-800/80 p-4 rounded-xl bg-gray-50/50 dark:bg-zinc-900/10 md:col-span-2">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="flex flex-col gap-1.5">
-                  <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+                  <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                     6. CIN / Firm Registration Number
                   </label>
                   <input
                     type="text"
                     placeholder="Enter CIN/Firm registration number (Optional)"
-                    className={`w-full rounded-lg border bg-white px-4 py-2.5 text-gray-800 outline-none transition focus:ring-2 ${
+                    className={`w-full rounded-lg border bg-white dark:bg-zinc-900 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:ring-2 ${
                       errors.cinNumber ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                     }`}
                     {...register("cinNumber")}
@@ -510,8 +510,8 @@ export function RegisterForm() {
                   <div className="flex items-center justify-between h-full pt-1.5">
                     <span className="text-xs font-semibold text-gray-500">CIN Registration PDF</span>
                     {cinDocUrl ? (
-                      <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1">
-                        <span className="text-[0.78rem] font-medium text-emerald-700 truncate max-w-[150px]">
+                      <div className="flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/80 rounded-lg px-2.5 py-1">
+                        <span className="text-[0.78rem] font-medium text-emerald-700 dark:text-emerald-300 truncate max-w-[150px]">
                           {uploadedFiles.cinDocUrl || "Uploaded CIN"}
                         </span>
                         <button type="button" onClick={() => removeUploadedFile("cinDocUrl")} className="text-red-500 hover:text-red-700">
@@ -519,7 +519,7 @@ export function RegisterForm() {
                         </button>
                       </div>
                     ) : (
-                      <label className="flex items-center gap-1.5 bg-blue-50 border border-blue-200 rounded-lg px-3 py-1.5 cursor-pointer hover:bg-blue-100 text-blue-700 text-xs font-bold transition">
+                      <label className="flex items-center gap-1.5 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg px-3 py-1.5 cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs font-bold transition">
                         <Upload className="h-3.5 w-3.5" />
                         {uploadingField === "cinDocUrl" ? "Uploading..." : "Upload File"}
                         <input type="file" accept=".pdf" className="hidden" onChange={(e) => handleDocUpload(e, "cinDocUrl")} disabled={uploadingField !== null} />
@@ -533,12 +533,12 @@ export function RegisterForm() {
 
             {/* A.7 Date of Registration */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 7. Date of Registration <span className="text-red-500">*</span>
               </label>
               <input
                 type="date"
-                className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                   errors.dateOfRegistration ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                 }`}
                 {...register("dateOfRegistration")}
@@ -548,7 +548,7 @@ export function RegisterForm() {
 
             {/* A.8 Contact Number */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 8. Contact Number <span className="text-red-500">*</span>
               </label>
               <div className="flex gap-2">
@@ -562,7 +562,7 @@ export function RegisterForm() {
                   type="text"
                   maxLength={10}
                   placeholder="10-digit number"
-                  className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                  className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                     errors.contactNumber ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                   }`}
                   {...register("contactNumber")}
@@ -573,13 +573,13 @@ export function RegisterForm() {
 
             {/* A.9 Email ID of the Company */}
             <div className="flex flex-col gap-1.5 md:col-span-2">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 9. Email ID of the Company <span className="text-red-500">*</span>
               </label>
               <input
                 type="email"
                 placeholder="e.g. contact@company.com"
-                className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                   errors.companyEmail ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                 }`}
                 {...register("companyEmail")}
@@ -592,19 +592,19 @@ export function RegisterForm() {
         {/* ================= STEP 2: AUTHORISED REPRESENTATIVE ================= */}
         {currentStep === 2 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 transition duration-300 animate-fadeIn">
-            <div className="md:col-span-2 border-b border-gray-100 pb-2 mb-1">
-              <h2 className="text-sm font-bold text-gray-800 uppercase tracking-wide">Section B: Details of the Authorised Representative</h2>
+            <div className="md:col-span-2 border-b border-gray-100 dark:border-zinc-800 pb-2 mb-1">
+              <h2 className="text-sm font-bold text-gray-800 dark:text-zinc-100 uppercase tracking-wide">Section B: Details of the Authorised Representative</h2>
             </div>
 
             {/* B.1 Name of Representative */}
             <div className="flex flex-col gap-1.5 md:col-span-2">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 1. Name of Representative <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 placeholder="Representative full name"
-                className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                   errors.repName ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                 }`}
                 {...register("repName")}
@@ -614,13 +614,13 @@ export function RegisterForm() {
 
             {/* B.2 Designation */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 2. Designation in Company <span className="text-red-500">*</span>
               </label>
               <input
                 type="text"
                 placeholder="e.g. Managing Director / Partner"
-                className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                   errors.repDesignation ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                 }`}
                 {...register("repDesignation")}
@@ -629,15 +629,15 @@ export function RegisterForm() {
             </div>
 
             {/* B.3 Authorisation Document Upload */}
-            <div className="flex flex-col gap-1.5 border border-gray-100 p-4 rounded-xl bg-gray-50/50">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+            <div className="flex flex-col gap-1.5 border border-gray-100 dark:border-zinc-800/80 p-4 rounded-xl bg-gray-50/50 dark:bg-zinc-900/10">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 3. Authorisation Document (Power of Attorney, etc) <span className="text-red-500">*</span>
               </label>
               <div className="flex items-center justify-between h-full pt-1">
                 <span className="text-xs font-semibold text-gray-500">Authorisation Doc PDF</span>
                 {repAuthDocUrl ? (
-                  <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1">
-                    <span className="text-[0.78rem] font-medium text-emerald-700 truncate max-w-[150px]">
+                  <div className="flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/80 rounded-lg px-2.5 py-1">
+                    <span className="text-[0.78rem] font-medium text-emerald-700 dark:text-emerald-300 truncate max-w-[150px]">
                       {uploadedFiles.repAuthDocUrl || "Uploaded Doc"}
                     </span>
                     <button type="button" onClick={() => removeUploadedFile("repAuthDocUrl")} className="text-red-500 hover:text-red-700">
@@ -645,7 +645,7 @@ export function RegisterForm() {
                     </button>
                   </div>
                 ) : (
-                  <label className="flex items-center gap-1.5 bg-blue-50 border border-blue-200 rounded-lg px-3 py-1.5 cursor-pointer hover:bg-blue-100 text-blue-700 text-xs font-bold transition">
+                  <label className="flex items-center gap-1.5 bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-800 rounded-lg px-3 py-1.5 cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/20 text-blue-700 dark:text-blue-300 text-xs font-bold transition">
                     <Upload className="h-3.5 w-3.5" />
                     {uploadingField === "repAuthDocUrl" ? "Uploading..." : "Upload File"}
                     <input type="file" accept=".pdf" className="hidden" onChange={(e) => handleDocUpload(e, "repAuthDocUrl")} disabled={uploadingField !== null} />
@@ -657,7 +657,7 @@ export function RegisterForm() {
 
             {/* B.4 Mobile Number */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 4. Mobile Number <span className="text-red-500">*</span>
               </label>
               <div className="flex gap-2">
@@ -671,7 +671,7 @@ export function RegisterForm() {
                   type="text"
                   maxLength={10}
                   placeholder="10-digit number"
-                  className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                  className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                     errors.repMobile ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                   }`}
                   {...register("repMobile")}
@@ -682,13 +682,13 @@ export function RegisterForm() {
 
             {/* B.5 Email ID */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 5. Email ID <span className="text-red-500">*</span>
               </label>
               <input
                 type="email"
                 placeholder="e.g. rep@company.com"
-                className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                   errors.repEmail ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                 }`}
                 {...register("repEmail")}
@@ -701,34 +701,34 @@ export function RegisterForm() {
         {/* ================= STEP 3: CREDENTIALS & DECLARATION ================= */}
         {currentStep === 3 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 transition duration-300 animate-fadeIn">
-            <div className="md:col-span-2 border-b border-gray-100 pb-2 mb-1">
-              <h2 className="text-sm font-bold text-gray-800 uppercase tracking-wide">Section C: Credentials and Declaration</h2>
+            <div className="md:col-span-2 border-b border-gray-100 dark:border-zinc-800 pb-2 mb-1">
+              <h2 className="text-sm font-bold text-gray-800 dark:text-zinc-100 uppercase tracking-wide">Section C: Credentials and Declaration</h2>
             </div>
 
             {/* C.1 User ID (Disabled, filled from PAN) */}
             <div className="flex flex-col gap-1.5 md:col-span-2">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 1. User ID (Auto-filled from PAN)
               </label>
               <input
                 type="text"
                 disabled
                 value={panCardVal || "Enter PAN in Step 1 to auto-fill"}
-                className="w-full rounded-lg border border-gray-200 bg-gray-100 px-4 py-2.5 text-gray-500 outline-none tracking-widest font-semibold font-mono"
+                className="w-full rounded-lg border border-gray-200 bg-gray-100 dark:bg-zinc-800/60 px-4 py-2.5 text-gray-500 dark:text-zinc-400 outline-none tracking-widest font-semibold font-mono"
               />
               <p className="text-xs text-gray-400">Your unique PAN number serves as your username/User ID.</p>
             </div>
 
             {/* C.2 Password */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 2. Password <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a strong password"
-                  className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 pr-11 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                  className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 pr-11 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                     errors.password ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                   }`}
                   {...register("password")}
@@ -769,14 +769,14 @@ export function RegisterForm() {
 
             {/* Confirm Password */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-gray-700 text-xs font-bold uppercase tracking-wider">
+              <label className="text-gray-700 dark:text-zinc-300 text-xs font-bold uppercase tracking-wider">
                 Confirm Password <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Confirm your password"
-                  className={`w-full rounded-lg border bg-gray-50 px-4 py-2.5 pr-11 text-gray-800 outline-none transition focus:bg-white focus:ring-2 ${
+                  className={`w-full rounded-lg border bg-gray-50 dark:bg-zinc-800/40 px-4 py-2.5 pr-11 text-gray-800 dark:text-zinc-100 outline-none transition focus:bg-white dark:focus:bg-zinc-900 focus:ring-2 ${
                     errors.confirmPassword ? "border-red-400 focus:ring-red-100" : "border-gray-200 focus:border-blue-500 focus:ring-blue-100"
                   }`}
                   {...register("confirmPassword")}
@@ -794,7 +794,7 @@ export function RegisterForm() {
             </div>
 
             {/* Declaration Box */}
-            <div className="md:col-span-2 border border-blue-100 rounded-xl bg-blue-50/20 p-5 mt-3">
+            <div className="md:col-span-2 border border-blue-100 dark:border-blue-900/30 rounded-xl bg-blue-50/20 dark:bg-blue-950/10 p-5 mt-3">
               <div className="flex gap-3">
                 <input
                   type="checkbox"
@@ -802,7 +802,7 @@ export function RegisterForm() {
                   className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 mt-0.5 cursor-pointer"
                   {...register("declaration")}
                 />
-                <label htmlFor="declaration-cb" className="text-xs text-gray-600 leading-relaxed cursor-pointer font-medium">
+                <label htmlFor="declaration-cb" className="text-xs text-gray-600 dark:text-zinc-300 leading-relaxed cursor-pointer font-medium">
                   By submitting this Registration Form, we hereby confirm that all the statements, information, and answers given above are true and no information has been suppressed. In case any information provided by us is found incorrect or misleading, DMRC will be at liberty to take suitable penal action as considered appropriate.
                 </label>
               </div>
@@ -812,11 +812,11 @@ export function RegisterForm() {
         )}
 
         {/* ================= BUTTON ACTION FOOTER ================= */}
-        <div className="flex items-center justify-between border-t border-gray-100 pt-6 mt-4">
+        <div className="flex items-center justify-between border-t border-gray-100 dark:border-zinc-800 pt-6 mt-4">
           <button
             type="button"
             onClick={() => setShowCancelDialog(true)}
-            className="rounded-lg px-5 py-2.5 border border-gray-200 hover:bg-gray-50 text-gray-600 text-sm font-semibold transition"
+            className="rounded-lg px-5 py-2.5 border border-gray-200 dark:border-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-900 text-gray-600 dark:text-zinc-300 text-sm font-semibold transition"
           >
             Cancel
           </button>
@@ -826,7 +826,7 @@ export function RegisterForm() {
               <button
                 type="button"
                 onClick={handleBackStep}
-                className="flex items-center gap-1 rounded-lg px-4 py-2.5 border border-gray-200 hover:bg-gray-50 text-gray-600 text-sm font-semibold transition"
+                className="flex items-center gap-1 rounded-lg px-4 py-2.5 border border-gray-200 dark:border-zinc-800 hover:bg-gray-50 dark:hover:bg-zinc-900 text-gray-600 dark:text-zinc-300 text-sm font-semibold transition"
               >
                 <ArrowLeft className="h-4 w-4" />
                 Back

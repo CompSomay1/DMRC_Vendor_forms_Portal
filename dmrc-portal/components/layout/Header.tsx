@@ -4,12 +4,36 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { signOut } from "next-auth/react";
-import { Train, LogOut, LayoutDashboard, FileText } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Train, LogOut, LayoutDashboard, FileText, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "next-themes";
 
 export function Header() {
   const pathname = usePathname();
   const router = useRouter();
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const themeToggle = (
+    <Button
+      variant="ghost"
+      size="icon"
+      className="text-white hover:bg-white/20 h-9 w-9 rounded-lg flex items-center justify-center transition-all animate-fadeIn"
+      onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+      title="Toggle Theme"
+    >
+      {mounted && theme === "dark" ? (
+        <Moon className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+      ) : (
+        <Sun className="h-4 w-4 text-white" />
+      )}
+    </Button>
+  );
 
   const isLogin = pathname === "/login";
   const isRegister = pathname === "/register";
@@ -54,6 +78,7 @@ export function Header() {
 
         {/* Nav links */}
         <nav className="flex items-center gap-2">
+          {themeToggle}
           <button
             onClick={() => router.push("/login")}
             className="px-5 py-2 rounded-lg text-white transition"
@@ -88,7 +113,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full shadow-md" style={{ backgroundColor: "#1d4ed8" }}>
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo & Brand */}
-        <Link href="/" className="flex items-center gap-3 transition-opacity hover:opacity-80">
+        <Link href="/dashboard" className="flex items-center gap-3 transition-opacity hover:opacity-80">
           <div className="flex items-center justify-center shrink-0 overflow-hidden rounded-md bg-white p-1" style={{ height: "56px" }}>
             <Image
               src="/logo-final.png"
@@ -111,24 +136,32 @@ export function Header() {
 
         {/* Navigation */}
         <nav className="flex items-center gap-1">
-          <Link href="/dashboard">
+          {themeToggle}
+          <div className="mx-1.5 h-6 w-px bg-white/20" />
+          <Link href="/dashboard?view=applications">
             <Button
               variant="ghost"
               size="sm"
-              className={`gap-2 text-white hover:bg-white/20 hover:text-white ${pathname === "/dashboard" ? "bg-white/20" : ""}`}
+              className={`gap-2 text-white hover:bg-white/20 hover:text-white ${
+                pathname === "/dashboard" &&
+                typeof window !== "undefined" &&
+                window.location.search.includes("view=applications")
+                  ? "bg-white/20"
+                  : ""
+              }`}
             >
-              <LayoutDashboard className="h-4 w-4" />
-              <span className="hidden sm:inline">Dashboard</span>
+              <FileText className="h-4 w-4" />
+              <span className="hidden sm:inline">Applications</span>
             </Button>
           </Link>
           <div className="mx-2 h-6 w-px bg-white/20" />
           <Button
-            variant="ghost"
+            variant="outline"
             size="sm"
-            className="gap-2 text-red-400 font-medium hover:text-white hover:bg-red-500/50"
+            className="gap-2 text-white border border-red-500 bg-red-500/10 hover:bg-red-600 hover:border-red-600 font-semibold px-4 transition-all rounded-lg"
             onClick={() => signOut({ callbackUrl: "/login" })}
           >
-            <LogOut className="h-4 w-4" />
+            <LogOut className="h-4 w-4 text-red-300" />
             <span className="hidden sm:inline">Logout</span>
           </Button>
         </nav>
