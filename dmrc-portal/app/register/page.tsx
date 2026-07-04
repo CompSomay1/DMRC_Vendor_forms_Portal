@@ -24,7 +24,7 @@ export default function RegisterPage() {
         className="absolute inset-0"
         style={{ backgroundColor: "rgba(15, 30, 80, 0.55)" }}
       />
-      <div className="relative z-10 w-full max-w-md">
+      <div className="relative z-10 w-full max-w-3xl">
         {/* Page heading */}
         <div className="text-center mb-8">
 

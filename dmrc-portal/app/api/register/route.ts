@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import bcrypt from "bcryptjs";
-import { loginSchema } from "@/lib/validations/auth";
+import { registerSchema } from "@/lib/validations/auth";
 
 // Simple in-memory rate limiter for development (10 requests per minute per IP)
 const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
@@ -39,8 +39,8 @@ export async function POST(req: Request) {
     // 2. Request body parsing
     const body = await req.json();
 
-    // 3. Validation and Sanitization (Zod handles trim & uppercase for PAN)
-    const parsedData = loginSchema.safeParse(body);
+    // 3. Validation and Sanitization (Zod handles everything)
+    const parsedData = registerSchema.safeParse(body);
     if (!parsedData.success) {
       return NextResponse.json(
         { error: parsedData.error.issues[0].message },
@@ -48,7 +48,8 @@ export async function POST(req: Request) {
       );
     }
 
-    const { panCard, password } = parsedData.data;
+    const data = parsedData.data;
+    const { panCard, password } = data;
 
     // 4. Check if user already exists
     const existingUser = await db.user.findUnique({
@@ -65,12 +66,39 @@ export async function POST(req: Request) {
     // 5. Hash password (12 salt rounds)
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // 6. Create user in database
+    // 6. Create user in database with all form fields
     await db.user.create({
       data: {
         panCard,
         password: hashedPassword,
         role: "VENDOR",
+
+        // Section A: Company Details
+        companyName: data.companyName,
+        businessStructure: data.businessStructure,
+        businessStructureOther: data.businessStructureOther || null,
+        registeredAddress: data.registeredAddress,
+        city: data.city,
+        state: data.state,
+        country: data.country,
+        pinCode: data.pinCode,
+        gstNumber: data.gstNumber,
+        gstDocUrl: data.gstDocUrl,
+        panDocUrl: data.panDocUrl,
+        cinNumber: data.cinNumber || null,
+        cinDocUrl: data.cinDocUrl || null,
+        dateOfRegistration: data.dateOfRegistration ? new Date(data.dateOfRegistration) : null,
+        contactCountryCode: data.contactCountryCode || "+91",
+        contactNumber: data.contactNumber,
+        companyEmail: data.companyEmail,
+
+        // Section B: Authorised Representative
+        repName: data.repName,
+        repDesignation: data.repDesignation,
+        repAuthDocUrl: data.repAuthDocUrl,
+        repCountryCode: data.repCountryCode || "+91",
+        repMobile: data.repMobile,
+        repEmail: data.repEmail,
       },
     });
 

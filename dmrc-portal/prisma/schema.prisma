@@ -29,14 +29,43 @@ enum ApplicationStatus {
 }
 
 model User {
-  id           String              @id @default(cuid())
-  panCard      String              @unique
-  password     String
-  role         UserRole            @default(VENDOR)
-  createdAt    DateTime            @default(now())
-  updatedAt    DateTime            @updatedAt
+  id                     String              @id @default(cuid())
+  panCard                String              @unique
+  password               String
+  role                   UserRole            @default(VENDOR)
 
-  applications VendorApplication[]
+  // ── Section A: Company Details ──
+  companyName            String?
+  businessStructure      String?             // SOLE_PROPRIETORSHIP | LLP | PUBLIC_LIMITED | PRIVATE_LIMITED | OTHER
+  businessStructureOther String?             // Only when businessStructure = OTHER
+  registeredAddress      String?
+  city                   String?
+  state                  String?
+  country                String?
+  pinCode                String?
+  gstNumber              String?
+  gstDocUrl              String?
+  panDocUrl              String?
+  cinNumber              String?
+  cinDocUrl              String?
+  dateOfRegistration     DateTime?
+  contactCountryCode     String?             @default("+91")
+  contactNumber          String?
+  companyEmail           String?
+
+  // ── Section B: Authorised Representative ──
+  repName                String?
+  repDesignation         String?
+  repAuthDocUrl          String?
+  repCountryCode         String?             @default("+91")
+  repMobile              String?
+  repEmail               String?
+
+  // ── Timestamps ──
+  createdAt              DateTime            @default(now())
+  updatedAt              DateTime            @updatedAt
+
+  applications           VendorApplication[]
 }
 
 model VendorApplication {
