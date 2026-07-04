@@ -17,6 +17,7 @@ export default function RegisterPage() {
         backgroundImage: `url(${bgUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        backgroundAttachment: "fixed",
       }}
     >
       {/* overlay */}

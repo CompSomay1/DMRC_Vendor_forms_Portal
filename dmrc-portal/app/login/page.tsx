@@ -17,6 +17,7 @@ export default function LoginPage() {
         backgroundImage: `url(${bgUrl})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        backgroundAttachment: "fixed",
       }}
     >
       {/* overlay */}
