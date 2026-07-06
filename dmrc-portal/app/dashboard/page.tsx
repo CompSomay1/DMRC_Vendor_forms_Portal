@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, Suspense } from "react";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { 
   FileText, 
@@ -208,8 +209,8 @@ function DashboardContent() {
           {/* Top Card: Highlighted Vendor Dashboard and About */}
           <div className="border border-blue-100 dark:border-zinc-800/80 rounded-3xl bg-blue-50/10 dark:bg-zinc-900/30 shadow-sm p-8 flex flex-col gap-5">
             <div className="flex items-center gap-4">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md shadow-blue-100">
-                <ShieldCheck className="h-6 w-6" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl overflow-hidden bg-white shadow-md shadow-blue-100 p-0.5 border border-gray-100">
+                <Image src="/dmrc-logo.jpg" alt="DMRC Logo" width={48} height={48} className="h-full w-full object-contain" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold tracking-tight text-dmrc-blue dark:text-zinc-100 font-sans">
